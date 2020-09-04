@@ -1,0 +1,33 @@
+name: release published
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release_to_registry:
+    name: Build and publish Docker images to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build api and push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          path: api
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: fuxingloh/smu-goldman-hackathon/api
+          tag_with_ref: true
+
+      - name: Build web and push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          path: web-app
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: fuxingloh/smu-goldman-hackathon/web-app
+          tag_with_ref: true
