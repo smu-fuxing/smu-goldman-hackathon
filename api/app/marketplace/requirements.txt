@@ -1,0 +1,10 @@
+numpy==1.11.3
+pandas==0.19.2
+python-dateutil==2.6.0
+pytz==2016.10
+simplejson==3.10.0
+six==1.10.0
+yahoo-finance==1.4.0
+panda_datareader
+fix-yahoo-finance
+yfinance --upgrade --no-cache-dir
