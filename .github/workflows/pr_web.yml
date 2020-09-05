@@ -1,0 +1,24 @@
+name: "web-app: pr to master"
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'web-app/**'
+
+jobs:
+  ci_build_image:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v1
+        with:
+          path: web-app
+          registry: docker.pkg.github.com
+          repository: fuxingloh/smu-goldman-hackathon/web-app
+          tags: latest
+          push: false
