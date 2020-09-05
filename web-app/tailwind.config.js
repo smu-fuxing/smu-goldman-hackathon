@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       colors: {
         blue: {
-          '100': '#F0F4FA',
+          '100': '#f0f4fa',
           '200': '#D4E4FA',
           '300': '#ADCCF7',
           '400': '#75B1FF',
@@ -23,6 +23,11 @@ module.exports = {
           '700': '#0D4EA6',
           '800': '#103A75',
           '900': '#11294D',
+        },
+        goldman: {
+          'darkGrey': '#4B4D5A',
+          'accent': '#7F99BF',
+          'lightGrey': '#9ea2c0'
         }
       }
     },

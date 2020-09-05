@@ -1,6 +1,5 @@
 <template>
   <div class="h-screen bg-goldman-darkGrey">
-    <NavHeader/>
     <div>
       <Nuxt/>
     </div>
@@ -11,9 +10,7 @@
 
 </style>
 <script>
-import NavHeader from "@/components/nav/NavHeader";
-
 export default {
-  components: {NavHeader}
+  components: {}
 }
 </script>
