@@ -6,7 +6,7 @@
 !.idea/modules.xml
 !.idea/*.iml
 
-# API
+# Python
 venv/
 .ipynb_checkpoints/
 __pycache__/
