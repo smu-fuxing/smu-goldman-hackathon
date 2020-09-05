@@ -1,5 +1,5 @@
-numpy==1.11.3
-pandas==0.19.2
+numpy==1.15
+pandas==0.24
 python-dateutil==2.6.0
 pytz==2016.10
 simplejson==3.10.0

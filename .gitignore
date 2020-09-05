@@ -1,5 +1,5 @@
 # IntelliJ
-.idea/*
+.idea/**
 !.idea/inspectionProfiles/
 !.idea/dictionaries/
 !.idea/vcs.xml
