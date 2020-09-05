@@ -1,12 +1,12 @@
 # IntelliJ
-.idea/**
+.idea/*
 !.idea/inspectionProfiles/
 !.idea/dictionaries/
 !.idea/vcs.xml
 !.idea/modules.xml
 !.idea/*.iml
 
-# API
+# Python
 venv/
 .ipynb_checkpoints/
 __pycache__/
