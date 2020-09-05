@@ -14,47 +14,52 @@ module "vpc" {
   //  one_nat_gateway_per_az = true
 }
 
-//module "lb" {
-//  source  = "terraform-aws-modules/alb/aws"
-//  version = "~> 5.0"
-//
-//  load_balancer_type = "application"
-//
-//  vpc_id          = module.vpc.vpc_id
-//  subnets         = module.vpc.public_subnets
-//  security_groups = [aws_security_group.cluster.id]
-//
-//  target_groups = [
-//    {
-//      name_prefix      = "marvis-"
-//      backend_protocol = "HTTPS"
-//      backend_port     = 443
-//      target_type      = "instance"
-//    }
-//  ]
-//
-//  https_listeners = [
-//    {
-//      port               = 443
-//      protocol           = "HTTPS"
-//      certificate_arn    = aws_acm_certificate_validation.api_cert.certificate_arn
-//      target_group_index = 0
-//    }
-//  ]
-//
-//  http_tcp_listeners = [
-//    {
-//      port        = 80
-//      protocol    = "HTTP"
-//      action_type = "redirect"
-//      redirect = {
-//        port        = "443"
-//        protocol    = "HTTPS"
-//        status_code = "HTTP_301"
-//      }
-//    }
-//  ]
-//}
+module "lb" {
+  source  = "terraform-aws-modules/alb/aws"
+  version = "~> 5.0"
+
+  load_balancer_type = "application"
+
+  vpc_id          = module.vpc.vpc_id
+  subnets         = module.vpc.public_subnets
+  security_groups = [aws_security_group.cluster.id]
+
+  target_groups = [
+    {
+      name_prefix      = "calc-"
+      backend_protocol = "HTTPS"
+      backend_port     = 443
+      target_type      = "instance"
+    },
+    {
+      name_prefix      = "data-"
+      backend_protocol = "HTTPS"
+      backend_port     = 443
+      target_type      = "instance"
+    }
+  ]
+
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = aws_acm_certificate_validation.api_cert.certificate_arn
+    }
+  ]
+
+  http_tcp_listeners = [
+    {
+      port        = 80
+      protocol    = "HTTP"
+      action_type = "redirect"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+  ]
+}
 
 
 
