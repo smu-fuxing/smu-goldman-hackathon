@@ -1,3 +1,13 @@
 flask==1.1.1
 requests==2.23.0
 pyjwt==1.7.1
+numpy==1.15
+pandas==0.24
+python-dateutil==2.6.0
+pytz==2016.10
+simplejson==3.10.0
+six==1.10.0
+yahoo-finance==1.4.0
+pandas-datareader==0.8.1
+fix-yahoo-finance==0.0.20
+yfinance==0.1.54
