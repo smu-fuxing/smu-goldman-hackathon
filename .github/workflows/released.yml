@@ -21,13 +21,3 @@ jobs:
           registry: docker.pkg.github.com
           repository: fuxingloh/smu-goldman-hackathon/api
           tag_with_ref: true
-
-      - name: Build web and push to GitHub Packages
-        uses: docker/build-push-action@v1
-        with:
-          path: web-app
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: fuxingloh/smu-goldman-hackathon/web-app
-          tag_with_ref: true
