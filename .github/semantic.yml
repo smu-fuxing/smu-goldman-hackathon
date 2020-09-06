@@ -1,4 +1,4 @@
 titleAndCommits: true
 
-allowMergeCommits: false
-allowRevertCommits: false
+allowMergeCommits: true
+allowRevertCommits: true
