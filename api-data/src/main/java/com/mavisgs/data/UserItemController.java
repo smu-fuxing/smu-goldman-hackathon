@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.util.List;
 
+@CrossOrigin
 @RestController
+@RequestMapping("/data/users/{userId}/items")
 public class UserItemController {
 
 	private final UserItemRepository userItemRepository;
@@ -20,25 +22,25 @@ public class UserItemController {
 		this.userItemRepository = userItemRepository;
 	}
 
-	@GetMapping("/users/{userId}/items")
+	@GetMapping
 	public List<UserItem> list(@PathVariable String userId) {
 		Page<UserItem> page = userItemRepository.findByUserId(userId, PageRequest.of(0, 100));
 		return page.getContent();
 	}
 
-	@GetMapping("/users/{userId}/items/{itemId}")
+	@GetMapping("/{itemId}")
 	public UserItem get(@PathVariable String userId, @PathVariable String itemId) {
 		return userItemRepository.findById(new UserItemKey(userId, itemId))
 			.orElse(null);
 	}
 
-	@PutMapping("/users/{userId}/items/{itemId}")
+	@PutMapping("/{itemId}")
 	public UserItem put(@PathVariable String userId, @PathVariable String itemId, @RequestBody UserItem userItem) {
 		userItem.setKey(new UserItemKey(userId, itemId));
 		return userItemRepository.save(userItem);
 	}
 
-	@DeleteMapping("/users/{userId}/items/{itemId}")
+	@DeleteMapping("/{itemId}")
 	public void delete(@PathVariable String userId, @PathVariable String itemId) {
 		userItemRepository.deleteById(new UserItemKey(userId, itemId));
 	}

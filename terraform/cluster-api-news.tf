@@ -43,7 +43,7 @@ resource "aws_ecs_service" "api_news" {
   scheduling_strategy = "REPLICA"
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [desired_count, task_definition]
   }
 }
 
@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "api_news" {
   family = "api-news"
 
   network_mode       = "bridge"
-  task_role_arn      = aws_iam_role.task.arn
-  execution_role_arn = aws_iam_role.execution.arn
+  task_role_arn      = aws_iam_role.task_role.arn
+  execution_role_arn = aws_iam_role.execution_role.arn
 
   container_definitions = <<-EOF
 [
@@ -111,7 +111,7 @@ module "ecs_container_definition_api_news" {
 }
 
 resource "aws_appautoscaling_target" "api_news" {
-  min_capacity = 1
+  min_capacity = 2
   max_capacity = 5
 
   resource_id = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.api_news.name}"
@@ -120,23 +120,23 @@ resource "aws_appautoscaling_target" "api_news" {
   service_namespace  = "ecs"
 }
 
-//resource "aws_appautoscaling_policy" "api_news" {
-//  name        = "ecs_cluster_api_news"
-//  policy_type = "TargetTrackingScaling"
-//
-//  resource_id        = aws_appautoscaling_target.api_news.resource_id
-//  scalable_dimension = aws_appautoscaling_target.api_news.scalable_dimension
-//  service_namespace  = aws_appautoscaling_target.api_news.service_namespace
-//
-//  target_tracking_scaling_policy_configuration {
-//    predefined_metric_specification {
-//      predefined_metric_type = "ALBRequestCountPerTarget"
-//      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[2]}"
-//    }
-//
-//    target_value       = 30
-//    scale_in_cooldown  = 300
-//    scale_out_cooldown = 120
-//    disable_scale_in   = false
-//  }
-//}
+resource "aws_appautoscaling_policy" "api_news" {
+  name        = "ecs_cluster_api_news"
+  policy_type = "TargetTrackingScaling"
+
+  resource_id        = aws_appautoscaling_target.api_news.resource_id
+  scalable_dimension = aws_appautoscaling_target.api_news.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api_news.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ALBRequestCountPerTarget"
+      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[2]}"
+    }
+
+    target_value       = 30
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 120
+    disable_scale_in   = false
+  }
+}

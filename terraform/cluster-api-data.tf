@@ -43,7 +43,7 @@ resource "aws_ecs_service" "api_data" {
   scheduling_strategy = "REPLICA"
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [desired_count, task_definition]
   }
 }
 
@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "api_data" {
   family = "api-data"
 
   network_mode       = "bridge"
-  task_role_arn      = aws_iam_role.task.arn
-  execution_role_arn = aws_iam_role.execution.arn
+  task_role_arn      = aws_iam_role.task_role.arn
+  execution_role_arn = aws_iam_role.execution_role.arn
 
   container_definitions = <<-EOF
 [
@@ -104,7 +104,7 @@ module "ecs_container_definition_api_data" {
 }
 
 resource "aws_appautoscaling_target" "api_data" {
-  min_capacity = 1
+  min_capacity = 2
   max_capacity = 5
 
   resource_id = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.api_data.name}"
@@ -113,23 +113,23 @@ resource "aws_appautoscaling_target" "api_data" {
   service_namespace  = "ecs"
 }
 
-//resource "aws_appautoscaling_policy" "api_data" {
-//  name        = "ecs_cluster_api_data"
-//  policy_type = "TargetTrackingScaling"
-//
-//  resource_id        = aws_appautoscaling_target.api_data.resource_id
-//  scalable_dimension = aws_appautoscaling_target.api_data.scalable_dimension
-//  service_namespace  = aws_appautoscaling_target.api_data.service_namespace
-//
-//  target_tracking_scaling_policy_configuration {
-//    predefined_metric_specification {
-//      predefined_metric_type = "ALBRequestCountPerTarget"
-//      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[1]}"
-//    }
-//
-//    target_value       = 30
-//    scale_in_cooldown  = 300
-//    scale_out_cooldown = 120
-//    disable_scale_in   = false
-//  }
-//}
+resource "aws_appautoscaling_policy" "api_data" {
+  name        = "ecs_cluster_api_data"
+  policy_type = "TargetTrackingScaling"
+
+  resource_id        = aws_appautoscaling_target.api_data.resource_id
+  scalable_dimension = aws_appautoscaling_target.api_data.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api_data.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ALBRequestCountPerTarget"
+      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[1]}"
+    }
+
+    target_value       = 30
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 120
+    disable_scale_in   = false
+  }
+}

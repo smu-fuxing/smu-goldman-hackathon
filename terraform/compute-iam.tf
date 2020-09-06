@@ -1,10 +1,10 @@
-resource "aws_iam_role" "task" {
+resource "aws_iam_role" "task_role" {
   name = "ECS_TASK"
 
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks.json
 }
 
-resource "aws_iam_role" "execution" {
+resource "aws_iam_role" "execution_role" {
   name = "ECS_EXECUTION"
 
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks.json
@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "ecs_tasks" {
 
 resource "aws_iam_role_policy" "execution" {
   name = "ECS_EXECUTION"
-  role = aws_iam_role.execution.id
+  role = aws_iam_role.execution_role.id
 
   policy = data.aws_iam_policy_document.execution.json
 }
@@ -60,31 +60,8 @@ data "aws_iam_policy_document" "execution" {
     resources = [
       aws_secretsmanager_secret.github_token.arn,
       aws_secretsmanager_secret.news_api_token.arn,
+      aws_secretsmanager_secret.fa_api_key.arn,
       aws_kms_key.default.arn
     ]
-  }
-}
-
-resource "aws_iam_instance_profile" "ecs" {
-  name = "ECS_INSTANCE_PROFILE"
-  role = aws_iam_role.ecs.name
-}
-
-resource "aws_iam_role" "ecs" {
-  name = "ECS_ROLE"
-  path = "/"
-
-  assume_role_policy = data.aws_iam_policy_document.ecs.json
-}
-
-data "aws_iam_policy_document" "ecs" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["ec2.amazonaws.com"]
-    }
   }
 }

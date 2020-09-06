@@ -5,16 +5,13 @@ module "vpc" {
   name = "smu-goldman-hackathon"
   cidr = "10.0.0.0/16"
 
-  azs            = ["ap-southeast-1a", "ap-southeast-1b"]
-  public_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+  azs             = ["ap-southeast-1a", "ap-southeast-1b"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
 
-  // TODO(fuxing): Enable private SUBNET for compute
-
-  //  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
-
-  //  enable_nat_gateway     = true
-  //  single_nat_gateway     = false
-  //  one_nat_gateway_per_az = true
+  enable_nat_gateway     = true
+  single_nat_gateway     = false
+  one_nat_gateway_per_az = true
 }
 
 module "lb" {
@@ -29,22 +26,43 @@ module "lb" {
 
   target_groups = [
     {
-      name_prefix      = "calc-"
+      name_prefix      = "api-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     },
     {
       name_prefix      = "data-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     },
     {
       name_prefix      = "news-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     }
   ]
 
@@ -70,5 +88,47 @@ module "lb" {
   ]
 }
 
+resource "aws_security_group" "cluster" {
+  name   = "Cluster Networking"
+  vpc_id = module.vpc.vpc_id
 
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+    cidr_blocks = [
+      // SMU
+      "156.146.57.0/24",
+      // Home
+      "103.6.151.0/24"
+    ]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+    self      = true
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

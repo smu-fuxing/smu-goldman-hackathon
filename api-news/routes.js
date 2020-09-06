@@ -13,7 +13,7 @@ const newsApi = axios.create({
 module.exports = function (app, opts) {
   app.use(cors())
 
-  app.get("/news", async (req, res, next) => {
+  app.get("/news/academy", async (req, res, next) => {
     // const endpoint = "https://newsapi.org/v2/everything?domains=afr.com,businessinsider.com";
     const endpoint = "https://newsapi.org/v2/everything?q=wealth&sortBy=popularity"
 
@@ -25,5 +25,9 @@ module.exports = function (app, opts) {
         error.statusCode = error.response.status;
         next(error)
       })
+  })
+
+  app.get("/_healthcheck", async(req, res, next) => {
+    res.json({})
   })
 }

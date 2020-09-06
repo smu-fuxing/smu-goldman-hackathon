@@ -56,7 +56,7 @@ def perfAnalysis(eq_tickers: list, start: date, end: date, riskfree_rate=0.00, p
         # Fill up stats dataframe
         summary_stats.loc[ticker] = [cumulative_return, annualized_return, annualized_volatility, annualized_sharpe, max_drawdown]
     
-    return summary_stats
+    return summary_stats.to_dict()
 
 def calcPortfRets(eq_rets: dict, eq_tickers: list, portf_weights: list):
     

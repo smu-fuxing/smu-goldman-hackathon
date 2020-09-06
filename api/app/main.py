@@ -5,7 +5,8 @@ import yahoo.financial_data as fd
 import education.calculator.mortgageLoan as ml
 import education.calculator.retirementCalculator as rc
 import education.calculator.retirementAgePrediction.retirementAgePrediction as rap
-import marketplace.perf_analysis as pa 
+
+import marketplace.perf_analysis as pa
 from datetime import date
 
 app = Flask(__name__)
@@ -157,7 +158,7 @@ def yahoo_financials():
   return jsonify({'data': data}), 200
 
 
-@ app.route('/api/yfinance')  # 1d,5d,1wk,1mo,3mo intervals
+@app.route('/api/yfinance')  # 1d,5d,1wk,1mo,3mo intervals
 def yfinance():
   tickers = request.args.getlist('ticker', type=str)
   time_interval = request.args.get('interval')
@@ -168,6 +169,11 @@ def yfinance():
   except ValueError as e:
     return jsonify({'error': str(e)}), 400
   return jsonify({'data': data}), 200
+
+
+@app.route('/_healthcheck')  # 1d,5d,1wk,1mo,3mo intervals
+def yfinance():
+  return jsonify({'data': 'ok'}), 200
 
 
 if __name__ == '__main__':

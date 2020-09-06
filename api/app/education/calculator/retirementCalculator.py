@@ -16,5 +16,5 @@ def retirement_calculator(current_age, yearly_contribution=0, current_savings=0,
     while years_until_retirement > 0:
         years_until_retirement -= 1
         savings += yearly_contribution * (avg_annual_return ** years_until_retirement)
-    
-    return savings
+
+    return (retirement_age, savings)
