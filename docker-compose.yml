@@ -4,11 +4,9 @@ services:
   api:
     build: api
     image: smu-goldman-hackathon/api:latest
+    environment:
+      FA_API_KEY: 7f10b4ece64656cafdca16fa381dd4df
     ports:
       - "180:80"
 
-  api-news:
-    build: api-news
-    image: smu-goldman-hackathon/api-news:latest
-    ports:
-      - "13000:3000"
+# docker-compose up -d --build
