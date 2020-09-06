@@ -43,7 +43,7 @@ resource "aws_ecs_service" "api_data" {
   scheduling_strategy = "REPLICA"
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [desired_count, task_definition]
   }
 }
 
@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "api_data" {
   family = "api-data"
 
   network_mode       = "bridge"
-  task_role_arn      = aws_iam_role.task.arn
-  execution_role_arn = aws_iam_role.execution.arn
+  task_role_arn      = aws_iam_role.task_role.arn
+  execution_role_arn = aws_iam_role.execution_role.arn
 
   container_definitions = <<-EOF
 [
