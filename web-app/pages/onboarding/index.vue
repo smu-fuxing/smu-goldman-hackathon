@@ -1,47 +1,49 @@
 <template>
-  <div class="container mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
-    <div class="px-4 pt-6 flex justify-between" v-if="step_index > 0">
-      <button @click="step_index--"
-              class="py-3 px-4 font-bold text-sm uppercase rounded text-goldman-accent hover:bg-gray-700 focus:outline-none">
-        Back
-      </button>
-      <button v-if="step_index < 5" @click="step_index++"
-              class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
-        Next
-      </button>
-      <nuxt-link v-else to="/dashboard">
-        <button
+  <div class="bg-goldman-darkBlue full-width">
+    <div class="container md:w-1/3 mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
+      <div class="px-4 pt-6 flex justify-between" v-if="step_index > 0">
+        <button @click="step_index--"
+                class="py-3 px-4 font-bold text-sm uppercase rounded text-goldman-accent hover:bg-gray-700 focus:outline-none">
+          Back
+        </button>
+        <button v-if="step_index < 5" @click="step_index++"
                 class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
-          Done
+          Next
         </button>
-      </nuxt-link>
-    </div>
-    <div class="container mx-auto px-6 pt-10">
-      <message v-if="step_index <= 1" :item="messages[step_index]" @eventname="incrementStep"></message>
-      <div v-else-if="step_index === 2">
-        <step1></step1>
+        <nuxt-link v-else to="/dashboard">
+          <button
+            class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
+            Done
+          </button>
+        </nuxt-link>
       </div>
-      <div v-else-if="step_index === 3">
-        <step2></step2>
+      <div class="container mx-auto px-6 pt-10">
+        <message v-if="step_index <= 1" :item="messages[step_index]" @eventname="incrementStep"></message>
+        <div v-else-if="step_index === 2">
+          <step1></step1>
+        </div>
+        <div v-else-if="step_index === 3">
+          <step2></step2>
+        </div>
+        <div v-else-if="step_index === 4">
+          <step3></step3>
+        </div>
+        <div v-else-if="step_index === 5">
+          <message :item="messages[2]" @eventname="incrementStep"></message>
+        </div>
       </div>
-      <div v-else-if="step_index === 4">
-        <step3></step3>
-      </div>
-      <div v-else-if="step_index === 5">
-        <message :item="messages[2]" @eventname="incrementStep"></message>
-      </div>
-    </div>
-    <div class="mt-20 px-5">
-      <div v-if="step_index === 0">
-        <button @click="step_index++"
-                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
-          Get Started
-        </button>
-      </div>
-      <div v-else>
-        <div class="shadow w-full bg-white bg-opacity-75 rounded">
-          <div class="bg-goldman-accent rounded leading-none py-1 text-center text-white"
-               :style="{ width: step_index/5*100  + '%' }"></div>
+      <div class="mt-20 px-5">
+        <div v-if="step_index === 0">
+          <button @click="step_index++"
+                  class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
+            Get Started
+          </button>
+        </div>
+        <div v-else>
+          <div class="shadow w-full bg-white bg-opacity-75 rounded">
+            <div class="bg-goldman-accent rounded leading-none py-1 text-center text-white"
+                 :style="{ width: step_index/5*100  + '%' }"></div>
+          </div>
         </div>
       </div>
     </div>
