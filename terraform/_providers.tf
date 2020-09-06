@@ -2,8 +2,21 @@ terraform {
   required_version = ">= 0.13"
 }
 
+provider "random" {
+
+}
+
 provider "aws" {
-  version = "~> 3.2"
-  region  = "us-west-2"
+  region  = "ap-southeast-1"
   profile = "smu-fuxing"
+}
+
+provider "aws" {
+  region  = "us-east-1"
+  profile = "smu-fuxing"
+
+  alias = "cloudfront"
+}
+
+data "aws_region" "current" {
 }

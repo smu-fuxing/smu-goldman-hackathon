@@ -8,17 +8,21 @@ on:
       - 'web-app/**'
 
 jobs:
-  ci_build_image:
+  ci_build_generate:
     name: Build Docker image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v1
+      - uses: actions/setup-node@v1
         with:
-          path: web-app
-          registry: docker.pkg.github.com
-          repository: fuxingloh/smu-goldman-hackathon/web-app
-          tags: latest
-          push: false
+          node-version: '14'
+
+      - run: yarn install
+        working-directory: web-app
+
+      - run: yarn build
+        working-directory: web-app
+
+      - run: yarn generate
+        working-directory: web-app
