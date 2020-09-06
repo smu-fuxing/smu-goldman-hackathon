@@ -31,4 +31,4 @@ def retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets,
                                 run_out_of_money_hist.std() / np.sqrt(loop))
 
 
-    return run_out_of_money
+    return str(run_out_of_money)
