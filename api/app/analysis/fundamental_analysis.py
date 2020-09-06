@@ -30,11 +30,11 @@ def get_profiles(tickers):
     for ticker in tickers:
       profile = fa.profile(ticker, API_KEY)
       profile.columns = [ticker]
-      profile.dropna(axis=0, inplace=True)
       res = pd.concat([res, profile], axis=1)
   except:
     raise ValueError("System is temporarily unavailable. Please try again later.")
 
+  res.dropna(axis=0, inplace=True)
   return res.to_dict()
 
 
@@ -46,11 +46,11 @@ def get_quotes(tickers):
     for ticker in tickers:
       quotes = fa.quote(ticker, API_KEY)
       quotes.columns = [ticker]
-      quotes.dropna(axis=0, inplace=True)
       res = pd.concat([res, quotes], axis=1)
   except:
     raise ValueError("System is temporarily unavailable. Please try again later.")
 
+  res.dropna(axis=0, inplace=True)
   return res.to_dict()
 
 
@@ -62,11 +62,11 @@ def get_ratings(tickers):
     for ticker in tickers:
       ratings = fa.rating(ticker, API_KEY)[['score']]  # higher score better {1...5}
       ratings.columns = [ticker]
-      ratings.dropna(axis=0, inplace=True)
       res = pd.concat([res, ratings], axis=1)
   except:
     raise ValueError("System is temporarily unavailable. Please try again later.")
 
+  res.dropna(axis=0, inplace=True)
   return res.to_dict()
 
 
@@ -80,11 +80,11 @@ def get_dcfs(tickers, period):
       dcfs = fa.discounted_cash_flow(ticker, API_KEY, period)
       dcfs.drop(['date', 'Stock Price'], inplace=True)
       dcfs.index = [ticker]
-      dcfs.dropna(axis=1, inplace=True)
       res = pd.concat([res, dcfs], axis=0)
   except:
     raise ValueError("System is temporarily unavailable. Please try again later.")
 
+  res.dropna(axis=1, inplace=True)
   return res.to_dict('index')
 
 
