@@ -26,7 +26,7 @@ resource "aws_ecs_service" "api_data" {
   load_balancer {
     target_group_arn = module.lb.target_group_arns[1]
     container_name   = "service"
-    container_port   = 8000
+    container_port   = 8080
   }
 
   ordered_placement_strategy {
@@ -64,7 +64,7 @@ EOF
 
   lifecycle {
     // This will get edited by GitHub Actions
-    ignore_changes = [container_definitions]
+    //    ignore_changes = [container_definitions]
   }
 }
 
@@ -73,7 +73,7 @@ module "ecs_container_definition_api_data" {
   version = "0.41.0"
 
   container_name               = "service"
-  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-data:latest"
+  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-data:v0.4.0"
   container_memory_reservation = 256
 
   essential = true
@@ -81,7 +81,7 @@ module "ecs_container_definition_api_data" {
   port_mappings = [
     {
       hostPort      = 0
-      containerPort = 8000
+      containerPort = 8080
       protocol      = "tcp"
     }
   ]

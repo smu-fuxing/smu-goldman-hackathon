@@ -175,8 +175,8 @@ def yfinance():
   return jsonify({'data': data}), 200
 
 
-@app.route('/_healthcheck')
-def yfinance():
+@app.route('/_healthcheck')  # 1d,5d,1wk,1mo,3mo intervals
+def healthcheck():
   return jsonify({'data': 'ok'}), 200
 
 
