@@ -1,12 +1,12 @@
 <template>
-  <div class="container mx-auto px-6 pt-10 pb-48 bg-goldman-darkBlue h-full">
+  <div class="container mx-auto px-6 pt-10 bg-goldman-darkBlue h-screen">
     <div class="flex content-center">
       <div class="rounded-lg flex-grow">
         <div class="px-6 py-6 flex-col">
           <img src="~/static/Goldman_Sachs.svg" class="rounded w-24"/>
         </div>
         <div class="px-6 py-6 flex-col">
-          <h2 class="text-white text-4xl">Hello</h2>
+          <h2 class="text-white text-4xl text-goldman-gold">Hello</h2>
           <div class="mt-4">
             <label class="block text-white text-sm font-bold mb-2" for="username">
               Username
@@ -23,9 +23,9 @@
           </div>
 
           <div class="mt-20">
-            <n-link to="/app">
+            <n-link to="/dashboard">
               <button
-                class="w-full py-2 px-4 font-bold bg-goldman-accent text-lg rounded text-goldman-main hover:bg-gray-700 focus:outline-none">
+                class="w-full py-2 px-4 font-bold bg-goldman-accent text-lg rounded text-white hover:bg-gray-700 focus:outline-none">
                 Sign In
               </button>
             </n-link>

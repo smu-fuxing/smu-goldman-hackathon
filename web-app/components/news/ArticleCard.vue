@@ -6,7 +6,7 @@
         class="newscard h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l overflow-hidden bg-opacity-50"
         v-bind:style="{ 'background-image': 'url(' + getImageUrl(news.urlToImage) + ')' }">
       </div>
-      <span class="font-bold text-xl mb-2 text-left text-white absolute bottom-0 px-4">{{ news.title }}</span>
+      <span class="font-bold text-xl mb-2 text-left text-white absolute bottom-0 px-4">{{ getNewsHeadline(news.title) }}</span>
     </div>
       <div
         class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -29,6 +29,21 @@ export default {
     },
   },
   methods: {
+    getNewsHeadline(text) {
+      if (text == null) {
+        return ""
+      }
+
+      if (text.length < 60) {
+        return text
+      }
+
+      const limitedText = text.substr(0, 70);
+      if (limitedText.slice(-3) === "...") {
+        return limitedText;
+      }
+      return limitedText + "...";
+    },
     getNewsText(text) {
       if (text == null) {
         return ""
