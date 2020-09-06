@@ -3,7 +3,7 @@
     <div class="flex content-center">
       <div class="rounded-lg flex-grow">
         <h2 class="text-white text-4xl">Financial News</h2>
-        <article-card v-for="article in articles" class="py-4" :news="article"></article-card>
+        <article-card v-for="article in articles" :key="article.url"  class="py-4" :news="article"></article-card>
       </div>
     </div>
   </div>
