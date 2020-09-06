@@ -27,8 +27,8 @@ module "lb" {
   target_groups = [
     {
       name_prefix      = "api-"
-      backend_protocol = "HTTPS"
-      backend_port     = 443
+      backend_protocol = "HTTP"
+      backend_port     = 80
       target_type      = "instance"
       health_check = {
         enabled  = true
@@ -40,8 +40,8 @@ module "lb" {
     },
     {
       name_prefix      = "data-"
-      backend_protocol = "HTTPS"
-      backend_port     = 443
+      backend_protocol = "HTTP"
+      backend_port     = 80
       target_type      = "instance"
       health_check = {
         enabled  = true
@@ -53,8 +53,8 @@ module "lb" {
     },
     {
       name_prefix      = "news-"
-      backend_protocol = "HTTPS"
-      backend_port     = 443
+      backend_protocol = "HTTP"
+      backend_port     = 80
       target_type      = "instance"
       health_check = {
         enabled  = true

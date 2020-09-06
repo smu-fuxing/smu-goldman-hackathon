@@ -73,7 +73,7 @@ module "ecs_container_definition_api" {
   version = "0.41.0"
 
   container_name               = "service"
-  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api:v0.4.0"
+  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api:v0.5.0"
   container_memory_reservation = 256
 
   essential = true
