@@ -1,20 +1,22 @@
 <template>
-  <div class="mx-auto pt-6 pb-48 bg-goldman-grey h-full overflow-hidden">
+  <div class="container mx-auto pt-6 pb-48 bg-goldman-grey h-full overflow-hidden">
     <div class="rounded-lg full-width px-6">
       <h2 class="text-gray-900 text-4xl">Home</h2>
     </div>
     <div>
       <h2 class="text-gray-900 text-xl px-6 text-goldman-gold">Bank Accounts</h2>
-      <div v-for="(bank, index) in banks" :class="{ 'bg-gray-300' : index % 2 === 1}">
-        <div class="flex items-center justify-between mr-2 py-3">
-          <div class="">
-            <p class="ml-6 text-lg font-bold">{{ bank.name }}</p>
-            <p class="ml-6 text-sm">{{ bank.account }}</p>
+      <div v-for="(bank, index) in banks" :class="{ 'bg-gray-300' : index % 2 === 0}">
+        <nuxt-link to="/dashboard/bank">
+          <div class="flex items-center justify-between mr-2 py-3">
+            <div class="">
+              <p class="ml-6 text-lg font-bold">{{ bank.name }}</p>
+              <p class="ml-6 text-sm">{{ bank.account }}</p>
+            </div>
+            <div class="mr-4">
+              <span class="inline-block align-middle text-md">{{ bank.balance }}</span>
+            </div>
           </div>
-          <div class="mr-4">
-            <span class="inline-block align-middle text-md">{{ bank.balance }}</span>
-          </div>
-        </div>
+        </nuxt-link>
       </div>
     </div>
     <div class="mt-10">
@@ -55,7 +57,7 @@ export default {
           balance: "SGD 18,894.50",
         },
         {
-          name: "POSB Savings",
+          name: "OCBC Savings",
           account: "104-83456-8",
           balance: "SGD 5,367.80",
         }],

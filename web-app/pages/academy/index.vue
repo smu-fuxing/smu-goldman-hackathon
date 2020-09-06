@@ -32,6 +32,11 @@ export default {
       articles: [],
       playlists: [
         {
+          name: "Investing Basics",
+          urlToImage: "https://wealthfund.in/blog/wp-content/uploads/2017/03/wealthfund-personal-finance.jpg",
+          videos: ["hE2NsJGpEq4", "_tEbIzKbZhY", "IuyejHOGCro", "kqr-h-pmky4", "00aPTfg3L9I", "3N6xlCxyWKY"]
+        },
+        {
           name: "Financial Planning",
           urlToImage: "https://www.manulife.com.sg/en/insights/_jcr_content/root/responsivegrid_641029165/responsivegrid/responsivegrid/contentteaser_518570_2106506410.coreimg.jpeg/1575362588384.jpeg",
           videos: ["3ez10ADR_gM", "NI9TLDIPVcs", "B43YEW2FvDs", "g9aDizJpd_s"]
