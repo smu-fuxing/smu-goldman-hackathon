@@ -10,6 +10,7 @@ from datetime import date
 
 app = Flask(__name__)
 
+
 @app.route('/api/mortgage-loan')
 def calculateMortgageLoan():
   home_price = request.args.get('home_price', type=int)
@@ -22,6 +23,7 @@ def calculateMortgageLoan():
   data = rc.calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date)
   return jsonify({'data': data}), 200
 
+
 @app.route('/api/retirement-calculator')
 def retirementCalculator():
   current_age = request.args.get('current_age', type=int)
@@ -32,6 +34,7 @@ def retirementCalculator():
 
   data = rc.retirement_calculator(current_age=current_age, yearly_contribution=yearly_contribution, current_savings=current_savings,  retirement_age=retirement_age, avg_annual_return=avg_annual_return)
   return jsonify({'data': data}), 200
+
 
 @app.route('/api/retirement-age')
 def retirementage_prediction():
@@ -46,6 +49,7 @@ def retirementage_prediction():
   data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction,state_abbrev, demographic_group)
   return jsonify({'data': data}), 200
 
+
 @app.route('/api/perf-analysis')
 def perfAnalysis():
   tickers = request.args.getlist('ticker', type=str)
@@ -57,6 +61,7 @@ def perfAnalysis():
 
   data = pa.perfAnalysis(tickers, start, end, riskfree_rate, portf_weights, init_cap)
   return jsonify({'data': data}), 200
+
 
 @app.route('/api/profiles')  # /profiles?ticker=PIH&ticker=TSLA&ticker=FCCY
 def ticker_profiles():
