@@ -1,14 +1,14 @@
-name: "api: pr to master"
+name: "api-news: pr to master"
 
 on:
   pull_request:
     branches:
       - master
     paths:
-      - 'api/**'
+      - 'api-news/**'
 
 jobs:
-  build-api:
+  build-api-news:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,8 +16,8 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v1
         with:
-          path: api
+          path: api-news
           registry: docker.pkg.github.com
-          repository: fuxingloh/smu-goldman-hackathon/api
+          repository: fuxingloh/smu-goldman-hackathon/api-news
           tags: latest
           push: false
