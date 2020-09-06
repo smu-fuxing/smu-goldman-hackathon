@@ -17,11 +17,13 @@ public class DynamoDBConfig {
 		return DynamoDBMapperConfig.DEFAULT;
 	}
 
+	@Primary
 	@Bean
 	public DynamoDBMapper dynamoDBMapper(AmazonDynamoDB amazonDynamoDB, DynamoDBMapperConfig config) {
 		return new DynamoDBMapper(amazonDynamoDB, config);
 	}
 
+	@Primary
 	@Bean
 	public AmazonDynamoDB amazonDynamoDB() {
 		return AmazonDynamoDBClientBuilder.standard()
