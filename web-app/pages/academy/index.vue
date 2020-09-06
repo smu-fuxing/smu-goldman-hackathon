@@ -17,16 +17,24 @@
                              style="flex: 0 0 auto; width: 300px" :playlist="playlist"></video-playlist-card>
       </div>
     </div>
+    <div class="rounded-lg">
+      <h2 class="text-gray-900 text-xl px-6">Calculators</h2>
+      <div class="flex flex-no-wrap overflow-x-auto scrolling-touch pl-6">
+        <calculator-card v-for="calculator in calculators" :key="calculator.name" class="py-4 mr-3"
+                             style="flex: 0 0 auto; width: 300px" :playlist="calculator"></calculator-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ArticleCard from "~/components/academy/ArticleCard";
 import VideoPlaylistCard from "~/components/academy/VideoPlaylistCard";
+import CalculatorCard from "~/components/academy/CalculatorCard";
 
 export default {
   name: "index",
-  components: {ArticleCard, VideoPlaylistCard},
+  components: {ArticleCard, VideoPlaylistCard, CalculatorCard},
   data: function () {
     return {
       articles: [],
@@ -46,13 +54,30 @@ export default {
           urlToImage: "https://news.yale.edu/sites/default/files/styles/featured_media/public/adobestock_257957753_ynews.jpeg?itok=I9HGiWNW&c=07307e7d6a991172b9f808eb83b18804",
           videos: ["3ez10ADR_gM", "NI9TLDIPVcs", "B43YEW2FvDs", "g9aDizJpd_s"]
         }
+      ],
+      calculators: [
+        {
+          name: "Mortgage Loan",
+          urlToImage: "https://advancecashcreditonline.com.sg/wp-content/uploads/2019/09/MORTAGE.jpg",
+          type: "mortgage"
+        },
+        {
+          name: "Retirement Savings",
+          urlToImage: "https://dollarsandsense.sg/wp-content/uploads/2016/10/20150716210028-retirement-savings-money-in-jar.jpeg",
+          type: "retirement-savings"
+        },
+        {
+          name: "Retirement Age Simulation",
+          urlToImage: "https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F563368%2Felderly-senior-couple-sitting-on-a-bench-on-the-beach.jpg&w=700&op=resize",
+          type: "retirement-age"
+        }
       ]
     }
   },
-  async asyncData({$axios}) {
-    const data = await $axios.$get("https://api.mavis-gs.com/news/academy")
-    return {articles: data.articles}
-  },
+  // async asyncData({$axios}) {
+  //   const data = await $axios.$get("https://api.mavis-gs.com/news/academy")
+  //   return {articles: data.articles}
+  // },
 }
 </script>
 
