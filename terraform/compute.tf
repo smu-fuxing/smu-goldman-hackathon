@@ -52,10 +52,10 @@ EOF
 }
 
 resource "aws_autoscaling_policy" "asg_mavis" {
-  name                   = "MAVIS_AS_POLICY"
-  autoscaling_group_name = module.asg_mavis.this_autoscaling_group_name
+  name = "MAVIS_AS_POLICY"
 
-  cooldown = 300
+  autoscaling_group_name = module.asg_mavis.this_autoscaling_group_name
+  policy_type            = "TargetTrackingScaling"
 
   target_tracking_configuration {
     predefined_metric_specification {

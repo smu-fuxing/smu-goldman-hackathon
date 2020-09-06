@@ -84,7 +84,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: service
-          image: docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/${{ matrix.service }}:$GIT_TAG_NAME
+          image: docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/${{ matrix.service }}:${{ env.GIT_TAG_NAME }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
