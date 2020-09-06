@@ -52,6 +52,7 @@ def retirementage_prediction():
 @app.route('/api/perf-analysis')
 def perfAnalysis():
   tickers = request.args.getlist('tickers', type=str)
+  
   start = request.args.get('start', type=str)
   end = request.args.get('end', type=str)
   datestart = datetime.strptime(start, "%d%m%Y").date()

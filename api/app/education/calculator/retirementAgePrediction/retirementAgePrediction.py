@@ -11,11 +11,10 @@ from scipy import stats
 # yearly_expense=50000.00
 # starting_assets=500000.00
 # stock_fraction=0.5
-# state_abbrev='IA'
-# demographic_group='white female'
 
 
-def retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction,state_abbrev, demographic_group):
+
+def retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction, state_abbrev='IA',demographic_group='white female'):
 
     histories = simulation.run_histories(yearly_expense = yearly_expense, starting_assets=starting_assets, stock_fraction=stock_fraction,
                     starting_age=starting_age, state_abbrev=state_abbrev, demographic_group=demographic_group, n_mc=loop)
@@ -30,5 +29,6 @@ def retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets,
     run_out_of_money_hist = np.array(final_assets < 0.0, dtype=np.float64)
     run_out_of_money = unc.ufloat(run_out_of_money_hist.mean(),
                                 run_out_of_money_hist.std() / np.sqrt(loop))
+
 
     return run_out_of_money
