@@ -12,8 +12,10 @@
     "@nuxt/content": "^1.5.0",
     "@nuxtjs/axios": "^5.12.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "chart.js": "^2.9.3",
     "express": "^4.17.1",
     "nuxt": "^2.14.0",
+    "vue-chartjs": "^3.5.1",
     "vue-youtube-embed": "^2.2.2"
   },
   "devDependencies": {

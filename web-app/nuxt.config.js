@@ -35,7 +35,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    {src: '@/plugins/youtube.js', ssr: false}
+    {src: '@/plugins/youtube.js', ssr: false},
   ],
   /*
   ** Auto import components
