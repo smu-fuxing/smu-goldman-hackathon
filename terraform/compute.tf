@@ -101,7 +101,7 @@ EOF
 
   min_size                  = 2
   max_size                  = 4
-  desired_capacity          = 2
+  desired_capacity          = 4
   wait_for_capacity_timeout = 0
 }
 
@@ -116,6 +116,6 @@ resource "aws_autoscaling_policy" "asg_mavis" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    target_value = 40.0
+    target_value = 50.0
   }
 }

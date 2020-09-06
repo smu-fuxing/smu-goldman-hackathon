@@ -1,16 +1,13 @@
 package com.mavisgs.data;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/_healthcheck")
 public class HealthController {
 
-	@GetMapping
+	@GetMapping("/_healthcheck")
 	public String get() {
 		return "ok";
 	}
-
 }
