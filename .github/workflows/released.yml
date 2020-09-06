@@ -5,20 +5,20 @@ on:
     types: [ published ]
 
 jobs:
-  build-api-calculator:
+  build-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Docker build api-calculator
+      - name: Docker build api
         id: build
         uses: docker/build-push-action@v1
         with:
-          path: api-calculator
+          path: api
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: fuxingloh/smu-goldman-hackathon/api-calculator
+          repository: fuxingloh/smu-goldman-hackathon/api
           tag_with_ref: true
 
   build-api-news:
@@ -59,10 +59,10 @@ jobs:
   deploy:
     name: ECS deploy
     runs-on: ubuntu-latest
-    needs: [ build-api-calculator, build-api-news, build-api-data ]
+    needs: [ build-api, build-api-news, build-api-data ]
     strategy:
       matrix:
-        service: [ api-calculator, api-news, api-data ]
+        service: [ api, api-news, api-data ]
 
     steps:
       - uses: olegtarasov/get-tag@v2
@@ -84,7 +84,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: service
-          image: docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/${{ matrix.service }}:$GIT_TAG_NAME
+          image: docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/${{ matrix.service }}:${{ env.GIT_TAG_NAME }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
