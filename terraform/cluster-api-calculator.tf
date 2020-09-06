@@ -81,7 +81,7 @@ module "ecs_container_definition_api" {
   port_mappings = [
     {
       hostPort      = 0
-      containerPort = 5000
+      containerPort = 80
       protocol      = "tcp"
     }
   ]
@@ -110,7 +110,7 @@ module "ecs_container_definition_api" {
 }
 
 resource "aws_appautoscaling_target" "api" {
-  min_capacity = 1
+  min_capacity = 2
   max_capacity = 5
 
   resource_id = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.api.name}"
@@ -119,24 +119,24 @@ resource "aws_appautoscaling_target" "api" {
   service_namespace  = "ecs"
 }
 
-//resource "aws_appautoscaling_policy" "api_calculator" {
-//  name        = "ecs_cluster_api_calculator"
-//  policy_type = "TargetTrackingScaling"
-//
-//  resource_id        = aws_appautoscaling_target.api_calculator.resource_id
-//  scalable_dimension = aws_appautoscaling_target.api_calculator.scalable_dimension
-//  service_namespace  = aws_appautoscaling_target.api_calculator.service_namespace
-//
-//  target_tracking_scaling_policy_configuration {
-//    predefined_metric_specification {
-//      predefined_metric_type = "ALBRequestCountPerTarget"
-//      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[0]}"
-//    }
-//
-//    target_value       = 30
-//    scale_in_cooldown  = 300
-//    scale_out_cooldown = 120
-//    disable_scale_in   = false
-//  }
-//}
+resource "aws_appautoscaling_policy" "api" {
+  name        = "ecs_cluster_api"
+  policy_type = "TargetTrackingScaling"
+
+  resource_id        = aws_appautoscaling_target.api.resource_id
+  scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ALBRequestCountPerTarget"
+      resource_label         = "${module.lb.this_lb_arn_suffix}/${module.lb.target_group_arn_suffixes[0]}"
+    }
+
+    target_value       = 30
+    scale_in_cooldown  = 300
+    scale_out_cooldown = 120
+    disable_scale_in   = false
+  }
+}
 

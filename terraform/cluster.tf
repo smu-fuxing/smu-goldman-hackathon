@@ -11,18 +11,22 @@ data "aws_iam_policy_document" "cluster" {
   statement {
     sid    = "RegisterTaskDefinition"
     effect = "Allow"
+
     actions = [
       "ecs:RegisterTaskDefinition"
     ]
+
     resources = ["*"]
   }
 
   statement {
     sid    = "PassRolesInTaskDefinition"
     effect = "Allow"
+
     actions = [
       "iam:PassRole"
     ]
+
     resources = [
       aws_iam_role.execution.arn,
       aws_iam_role.task.arn
@@ -32,14 +36,13 @@ data "aws_iam_policy_document" "cluster" {
   statement {
     sid    = "DeployService"
     effect = "Allow"
+
     actions = [
       "ecs:UpdateService",
       "ecs:DescribeServices",
       "ecs:DescribeTaskDefinition"
     ]
+
     resources = ["*"]
   }
 }
-
-// TODO(fuxing): Update Desired Count = 0
-// TODO(fuxing): Uncomment AAS Policy
