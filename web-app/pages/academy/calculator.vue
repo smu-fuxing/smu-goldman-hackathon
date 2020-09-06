@@ -7,7 +7,7 @@
         }}</h2>
       <div class="flex pt-4">
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'mortgage'">
-          <form action="/">
+          <div>
             <text-input :value.sync="mortgage.homePrice" :item="{name: 'Home Price'}"></text-input>
             <text-input :value.sync="mortgage.downpayment" :item="{name: 'Down Payment'}"></text-input>
             <text-input :value.sync="mortgage.interest" :item="{name: 'Interest'}"></text-input>
@@ -17,14 +17,20 @@
             <div class="flex justify-center mt-6">
               <button
                 class="bg-goldman-darkBlue w-2/3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
+                type="button"
+                @click="getMortgageLoan()">
                 Calculate
               </button>
             </div>
-          </form>
+          </div>
+          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.retirementSavingsResult !== ''">
+            <p class="text-xl">You can expect to have</p>
+            <p class="text-5xl font-bold">{{ '$' + this.retirementSavingsResult }}</p>
+            <p class="text-xl">saved when you are {{ retirementSavings.currentAge }}</p>
+          </div>
         </div>
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'retirement-savings'">
-          <form action="/">
+          <div>
             <text-input :value.sync="retirementSavings.currentAge" :item="{name: 'Current Age'}"></text-input>
             <text-input :value.sync="retirementSavings.yearlyContribution"
                         :item="{name: 'Yearly Contribution'}"></text-input>
@@ -35,11 +41,17 @@
             <div class="flex justify-center mt-6">
               <button
                 class="bg-goldman-darkBlue w-2/3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
+                type="button"
+                @click="getRetirementSavings()">
                 Calculate
               </button>
             </div>
-          </form>
+          </div>
+          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.retirementSavingsResult !== ''">
+            <p class="text-xl">You can expect to have</p>
+            <p class="text-5xl font-bold">{{ '$' + this.retirementSavingsResult }}</p>
+            <p class="text-xl">saved when you are {{ retirementSavings.currentAge }}</p>
+          </div>
         </div>
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'retirement-age'">
           <form action="/">
@@ -77,9 +89,69 @@ export default {
       retirementSavings:
         {currentAge: "", yearlyContribution: "", currentSavings: "", retirementAge: "", avgAnnualReturn: ""},
       retirementAge:
-        {loop: "", startingAge: "", yearlyExpense: "", startingAssets: "", stockFraction: ""}
+        {loop: "", startingAge: "", yearlyExpense: "", startingAssets: "", stockFraction: ""},
+      mortgageResult: "",
+      retirementSavingsResult: "",
+      retirementAgeResult: ""
     }
   },
+  methods: {
+    getMortgageLoan() {
+      const data = this.$axios.$get("https://api.mavis-gs.com/api/mortgage-loan",
+        {
+          params: {
+            home_price: this.mortgage.homePrice,
+            downpayment: this.mortgage.downpayment,
+            interest: this.mortgage.interest,
+            years: this.mortgage.years,
+            payments_year: this.mortgage.paymentYear,
+            start_date: this.mortgage.startDate,
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    },
+    getRetirementSavings() {
+      this.$axios.$get("https://api.mavis-gs.com/api/retirement-calculator",
+        {
+          params: {
+            current_age: this.retirementSavings.currentAge,
+            year_contribution: this.retirementSavings.yearlyContribution,
+            current_savings: this.retirementSavings.currentSavings,
+            retire_age: this.retirementSavings.retirementAge,
+            avg_annual_return: this.retirementSavings.avgAnnualReturn,
+          }
+        })
+        .then(response => (this.retirementSavingsResult = response.data[1]))
+        .catch(function (error) {
+          console.log(error);
+        })
+    },
+    getRetirementAge() {
+      const data = this.$axios.$get("https://api.mavis-gs.com/api/retirement-age",
+        {
+          params: {
+            loop: this.retirementAge.loop,
+            starting_age: this.retirementAge.startingAge,
+            yearly_expense: this.retirementAge.yearlyExpense,
+            starting_assets: this.retirementAge.startingAssets,
+            stock_fraction: this.retirementAge.stockFraction,
+            state_abbrev: "SG",
+            demographic_group: "Chinese",
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+    }
+  }
 }
 </script>
 
