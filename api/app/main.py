@@ -170,6 +170,11 @@ def yfinance():
   return jsonify({'data': data}), 200
 
 
+@app.route('/_healthcheck')  # 1d,5d,1wk,1mo,3mo intervals
+def yfinance():
+  return jsonify({'data': 'ok'}), 200
+
+
 if __name__ == '__main__':
   # Only for debugging while developing
   app.run(host='0.0.0.0', debug=True, port=5001)

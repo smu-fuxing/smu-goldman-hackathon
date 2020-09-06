@@ -26,4 +26,8 @@ module.exports = function (app, opts) {
         next(error)
       })
   })
+
+  app.get("/_healthcheck", async(req, res, next) => {
+    res.json({})
+  })
 }

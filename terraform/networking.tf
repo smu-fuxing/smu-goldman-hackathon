@@ -30,18 +30,39 @@ module "lb" {
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     },
     {
       name_prefix      = "data-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     },
     {
       name_prefix      = "news-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+      health_check = {
+        enabled  = true
+        interval = 30
+        path     = "/_healthcheck"
+        port     = "traffic-port"
+        protocol = "HTTP"
+      }
     }
   ]
 
