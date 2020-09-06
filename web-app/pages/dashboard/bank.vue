@@ -6,7 +6,10 @@
     <div class="rounded-lg">
       <p class="text-gray-900 text-xl px-6 font-bold">POSB Savings</p>
       <p class="text-gray-900 text-md px-6 mb-6">104-83456-8</p>
-      <p class="text-gray-900 text-xl px-6 font-bold mb-1">1-7 Sep 2020</p>
+      <div class="flex justify-between">
+        <p class="text-gray-900 text-lg px-6 font-bold mb-1">1-7 Sep 2020</p>
+        <p class="text-gray-900 text-lg px-6 font-bold mb-1">Total: $159.60</p>
+      </div>
       <div class="mx-6">
         <div class="py-2 px-4 w-full rounded border bg-gray-300 shadow">
           <bar-chart :data="barChartData" height="280"/>
@@ -79,7 +82,7 @@ export default {
         {
           name: "Shopping",
           transactions: 22,
-          amount: 59.10
+          amount: 59.15
         },
         {
           name: "Dining",
