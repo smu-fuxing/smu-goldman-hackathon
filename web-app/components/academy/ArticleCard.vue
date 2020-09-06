@@ -1,6 +1,6 @@
 <template>
   <div class="rounded">
-    <div class="max-w-sm lg:max-w-full lg:flex shadow">
+    <div class="max-w-sm lg:max-w-full lg:flex shadow rounded">
     <div class="relative text-white">
       <div
         class="newscard h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l overflow-hidden bg-opacity-50"
