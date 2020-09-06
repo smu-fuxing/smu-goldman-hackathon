@@ -49,4 +49,7 @@ def calculateMortgageLoan(home_price, downpayment, interest, years, payments_yea
 
     df['Payment Date'] = df['Payment Date'].apply(lambda x: str(x).split(' ')[0])
 
-    return df.set_index('Payment Date').to_json()
+    last_date = df['Payment Date'].iloc[-1]
+    payment = df['Payment'].iloc[-1]
+
+    return (payment, last_date)
