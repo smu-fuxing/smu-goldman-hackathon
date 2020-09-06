@@ -5,7 +5,7 @@
         {{ item.name }}
       </label>
       <input
-        class="text-lg px-3 py-2 rounded focus:outline-none placeholder-goldman-darkGrey bg-transparent border-2 border-goldman-lightGrey text-white bg-opacity-75"
+        class="text-lg px-3 py-2 rounded focus:outline-none placeholder-goldman-darkBlue bg-transparent border-2 border-goldman-lightGrey text-white bg-opacity-75"
         :placeholder="item.name"/>
     </div>
   </div>
