@@ -2,8 +2,61 @@ from flask import Flask, request, jsonify
 import analysis.fundamental_analysis as fa
 import yahoo.financial_data as fd
 
+import education.calculator.mortgageLoan as ml
+import education.calculator.retirementCalculator as rc
+import education.calculator.retirementAgePrediction.retirementAgePrediction as rap
+import marketplace.perf_analysis as pa 
+from datetime import date
+
 app = Flask(__name__)
 
+@app.route('/api/mortgage-loan')
+def calculateMortgageLoan():
+  home_price = request.args.get('home_price', type=int)
+  downpayment = request.args.get('downpayment', type=int)
+  interest = request.args.get('interest', type=float)
+  years = request.args.get('years', type=int)
+  payments_year = request.args.get('payments_year', type=int)
+  start_date = request.args.get('start_date', type=date)
+
+  data = rc.calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date)
+  return jsonify({'data': data}), 200
+
+@app.route('/api/retirement-calculator')
+def retirementCalculator():
+  current_age = request.args.get('current_age', type=int)
+  yearly_contribution = request.args.get('year_contribution', type=int)
+  current_savings = request.args.get('current_savings', type=int)
+  retirement_age = request.args.get('retire_age', type=int)
+  avg_annual_return = request.args.get('avg_annual_return', type=float)
+
+  data = rc.retirement_calculator(current_age=current_age, yearly_contribution=yearly_contribution, current_savings=current_savings,  retirement_age=retirement_age, avg_annual_return=avg_annual_return)
+  return jsonify({'data': data}), 200
+
+@app.route('/api/retirement-age')
+def retirementage_prediction():
+  loop = request.args.get('loop', type=int)
+  starting_age = request.args.get('start_age', type=int)
+  yearly_expense = request.args.get('year_expense', type=int)
+  starting_assets = request.args.get('start_assets', type=int)
+  stock_fraction = request.args.get('stock_frac', type=float)
+  state_abbrev = request.args.get('init_cap', type=str)
+  demographic_group = request.args.get('demo', type=str)
+
+  data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction,state_abbrev, demographic_group)
+  return jsonify({'data': data}), 200
+
+@app.route('/api/perf-analysis')
+def perfAnalysis():
+  tickers = request.args.getlist('ticker', type=str)
+  start = request.args.get('start', type=date)
+  end = request.args.get('end', type=date)
+  riskfree_rate = request.args.get('riskfree_rate', type=float)
+  portf_weights = request.args.getlist('weights', type=float)
+  init_cap = request.args.get('init_cap', type=int)
+
+  data = pa.perfAnalysis(tickers, start, end, riskfree_rate, portf_weights, init_cap)
+  return jsonify({'data': data}), 200
 
 @app.route('/api/profiles')  # /profiles?ticker=PIH&ticker=TSLA&ticker=FCCY
 def ticker_profiles():

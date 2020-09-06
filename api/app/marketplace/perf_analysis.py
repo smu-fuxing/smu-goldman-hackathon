@@ -3,9 +3,8 @@ from datetime import date
 import yfinance as yf
 yf.pdr_override()
 import pandas as pd
-import matplotlib.pyplot as plt
 
-def perfAnalysis(eq_tickers: list, start: date, end: date, riskfree_rate=0.00, portf_weights=[], init_cap=1000, chart_size=(18,10) ):
+def perfAnalysis(eq_tickers: list, start: date, end: date, riskfree_rate=0.00, portf_weights=[], init_cap=1000):
 
     """
     Arguments:
@@ -17,7 +16,6 @@ def perfAnalysis(eq_tickers: list, start: date, end: date, riskfree_rate=0.00, p
                         The number of tickers must match to the number of portfolio weights. 
                         The weights must add up to 1. 
         init_cap - initial capital when the wealth index is calculated
-        chart_size
                         
     Returns: Summary stats of the equities and optionally the portfolio for the given time period. 
     """
@@ -57,8 +55,6 @@ def perfAnalysis(eq_tickers: list, start: date, end: date, riskfree_rate=0.00, p
         
         # Fill up stats dataframe
         summary_stats.loc[ticker] = [cumulative_return, annualized_return, annualized_volatility, annualized_sharpe, max_drawdown]
-        
-    drawChart(eq_dd, chart_size=chart_size, line_style=':') if portf_weights else drawChart(eq_dd, chart_size=chart_size, line_style='-')
     
     return summary_stats
 
@@ -93,30 +89,4 @@ def drawdown(return_series: pd.Series, init_cap: int):
         "Peaks": previous_peaks,
         "Drawdowns": drawdowns
     })
-
-def drawChart(eq_dds: dict, chart_size, line_style: str):
-    
-    colors = ['royalblue', 'orange', 'olive', 'darkgreen', 'pink', 'magenta', 'darkcyan', 'darkorchid']
-    
-    plt.figure(figsize=chart_size)
-
-    plt.subplot(211)
-    plt.title("Wealth index ($)")
-    for i,ticker in enumerate(eq_dds):
-        line_color = 'firebrick' if ticker == 'Portf' else colors[i%len(colors)]
-        style = '-' if ticker == 'Portf' else line_style
-        eq_dds[ticker]["Wealth"].plot.line(color=line_color, label=ticker, legend=True, style=style)
-    plt.grid(True)
-
-    plt.subplot(212)
-    plt.title("Drawdown")
-    for i,ticker in enumerate(eq_dds):
-        line_color = 'firebrick' if ticker == 'Portf' else colors[i%len(colors)]
-        style = '-' if ticker == 'Portf' else line_style
-        eq_dds[ticker]["Drawdowns"].plot.line(color=line_color, label=ticker, legend=True, style=style)
-    plt.grid(True)
-
-    plt.subplots_adjust(hspace=0.4)
-    plt.show()
-    
         
