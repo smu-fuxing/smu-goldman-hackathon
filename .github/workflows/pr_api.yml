@@ -8,8 +8,7 @@ on:
       - 'api/**'
 
 jobs:
-  ci_build_image:
-    name: Build Docker image
+  build-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
