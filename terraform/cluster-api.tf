@@ -8,7 +8,7 @@ resource "aws_lb_listener_rule" "api" {
 
   condition {
     path_pattern {
-      values = ["/calculator/*"]
+      values = ["/api/*"]
     }
   }
 }
