@@ -16,26 +16,34 @@
         </div>
         <div class="w-full flex-grow hidden lg:block lg:flex lg:items-center lg:w-auto">
           <div class="text-sm lg:flex-grow">
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
+            <a href="/academy" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
+              Dashboard
+            </a>
+            <a href="/academy" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
               Academy
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
-              Leader
+            <a href="/leaderboard" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
+              Leaderboard
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
+            <a href="/news" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
+              News
+            </a>
+            <a href="/strategy" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 mr-6">
               Strategy
             </a>
-            <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">
+            <a href="/profile" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500">
               Profile
             </a>
           </div>
         </div>
       </nav>
-      <div :class="isOpen ? 'block' : 'hidden'" class="px-2 pt-2 pb-4">
-        <a href="#" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Academy</a>
-        <a href="#" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Leader</a>
-        <a href="#" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Strategy</a>
-        <a href="#" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Profile</a>
+      <div :class="isOpen ? 'block' : 'hidden'" class="px-4 pt-1 pb-4">
+        <a href="/dashboard" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Dashboard</a>
+        <a href="/academy" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Academy</a>
+        <a href="/leaderboard" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Leaderboard</a>
+        <a href="/news" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">News</a>
+        <a href="/strategy" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Strategy</a>
+        <a href="/profile" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Profile</a>
       </div>
     </div>
   </div>
