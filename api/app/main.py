@@ -7,6 +7,7 @@ import education.calculator.retirementCalculator as rc
 import education.calculator.retirementAgePrediction.retirementAgePrediction as rap
 import marketplace.perf_analysis as pa
 from datetime import date
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -43,23 +44,23 @@ def retirementage_prediction():
   yearly_expense = request.args.get('year_expense', type=int)
   starting_assets = request.args.get('start_assets', type=int)
   stock_fraction = request.args.get('stock_frac', type=float)
-  state_abbrev = request.args.get('init_cap', type=str)
-  demographic_group = request.args.get('demo', type=str)
 
-  data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction,state_abbrev, demographic_group)
+  data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction)
   return jsonify({'data': data}), 200
 
 
 @app.route('/api/perf-analysis')
 def perfAnalysis():
-  tickers = request.args.getlist('ticker', type=str)
-  start = request.args.get('start', type=date)
-  end = request.args.get('end', type=date)
+  tickers = request.args.getlist('tickers', type=str)
+  start = request.args.get('start', type=str)
+  end = request.args.get('end', type=str)
+  datestart = datetime.strptime(start, "%d%m%Y").date()
+  dateend = datetime.strptime(end, "%d%m%Y").date()
   riskfree_rate = request.args.get('riskfree_rate', type=float)
   portf_weights = request.args.getlist('weights', type=float)
   init_cap = request.args.get('init_cap', type=int)
 
-  data = pa.perfAnalysis(tickers, start, end, riskfree_rate, portf_weights, init_cap)
+  data = pa.perfAnalysis(tickers, datestart, dateend, riskfree_rate, portf_weights, init_cap)
   return jsonify({'data': data}), 200
 
 
