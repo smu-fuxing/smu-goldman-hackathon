@@ -12,3 +12,4 @@ pandas-datareader==0.8.1
 fix-yahoo-finance==0.0.20
 yfinance==0.1.54
 uncertainties==3.1.4
+python-dotenv==0.14.0
