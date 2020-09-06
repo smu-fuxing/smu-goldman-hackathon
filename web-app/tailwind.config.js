@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ['-apple-system', 'system-ui', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+      goldman: ['Goldman', 'sans-serif'],
     },
     extend: {
       colors: {
@@ -32,9 +33,7 @@ module.exports = {
       }
     },
   },
-  variants: {
-
-  },
+  variants: {},
   plugins: [
     plugin(function ({addBase, config}) {
       addBase({

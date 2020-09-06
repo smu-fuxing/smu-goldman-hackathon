@@ -1,10 +1,10 @@
 <template>
   <div class="bg-goldman-darkGrey border-b-2 border-goldman-lightGrey border-opacity-25">
     <div class="container mx-auto">
-      <nav class="flex items-center justify-between flex-wrap p-5">
+      <nav class="flex items-center justify-between flex-wrap px-5 py-4">
         <div class="flex flex-col  flex-shrink-0 text-white mr-10">
-          <span class="font-semibold text-xl tracking-tight">Mavis</span>
-          <span class="font-light text-white text-opacity-75 text-sm tracking-tight -mt-2">By Goldman Sachs</span>
+          <span class="font-goldman text-2xl tracking-tight">Mavis</span>
+          <span class="font-goldman font-light text-white text-opacity-75 text-sm tracking-tight -mt-2">By Goldman Sachs</span>
         </div>
         <div class="block lg:hidden">
           <button @click="isOpen = !isOpen" type="button" class="block text-white hover:text-white focus:text-white focus:outline-none">
