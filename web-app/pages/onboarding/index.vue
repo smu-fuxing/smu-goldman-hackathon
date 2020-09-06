@@ -1,17 +1,17 @@
 <template>
-  <div class="container mx-auto md:px-6 md:pt-10">
+  <div class="container mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
     <div class="px-4 pt-6 flex justify-between" v-if="step_index > 0">
       <button @click="step_index--"
               class="py-3 px-4 font-bold text-sm uppercase rounded text-goldman-accent hover:bg-gray-700 focus:outline-none">
         Back
       </button>
       <button v-if="step_index < 5" @click="step_index++"
-              class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkGrey hover:bg-gray-700 focus:outline-none">
+              class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
         Next
       </button>
-      <nuxt-link v-else to="/app">
+      <nuxt-link v-else to="/dashboard">
         <button
-                class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkGrey hover:bg-gray-700 focus:outline-none">
+                class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
           Done
         </button>
       </nuxt-link>
@@ -34,7 +34,7 @@
     <div class="mt-20 px-5">
       <div v-if="step_index === 0">
         <button @click="step_index++"
-                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkGrey hover:bg-gray-700 focus:outline-none">
+                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
           Get Started
         </button>
       </div>

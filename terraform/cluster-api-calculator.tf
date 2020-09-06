@@ -1,4 +1,4 @@
-resource "aws_lb_listener_rule" "api_calculator" {
+resource "aws_lb_listener_rule" "api" {
   listener_arn = module.lb.https_listener_arns[0]
 
   action {
@@ -13,11 +13,11 @@ resource "aws_lb_listener_rule" "api_calculator" {
   }
 }
 
-resource "aws_ecs_service" "api_calculator" {
-  name    = "api-calculator"
+resource "aws_ecs_service" "api" {
+  name    = "api"
   cluster = aws_ecs_cluster.main.id
 
-  task_definition = aws_ecs_task_definition.api_calculator.arn
+  task_definition = aws_ecs_task_definition.api.arn
 
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
@@ -47,8 +47,8 @@ resource "aws_ecs_service" "api_calculator" {
   }
 }
 
-resource "aws_ecs_task_definition" "api_calculator" {
-  family = "api-calculator"
+resource "aws_ecs_task_definition" "api" {
+  family = "api"
 
   network_mode       = "bridge"
   task_role_arn      = aws_iam_role.task.arn
@@ -56,7 +56,7 @@ resource "aws_ecs_task_definition" "api_calculator" {
 
   container_definitions = <<-EOF
 [
-  ${module.ecs_container_definition_api_calculator.json_map_encoded}
+  ${module.ecs_container_definition_api.json_map_encoded}
 ]
 EOF
 
@@ -68,12 +68,12 @@ EOF
   }
 }
 
-module "ecs_container_definition_api_calculator" {
+module "ecs_container_definition_api" {
   source  = "cloudposse/ecs-container-definition/aws"
   version = "0.41.0"
 
   container_name               = "service"
-  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-calculator:latest"
+  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api:latest"
   container_memory_reservation = 256
 
   essential = true
@@ -88,12 +88,19 @@ module "ecs_container_definition_api_calculator" {
 
   environment = []
 
+  secrets = [
+    {
+      name      = "FA_API_KEY"
+      valueFrom = aws_secretsmanager_secret.fa_api_key.arn
+    }
+  ]
+
   log_configuration = {
     logDriver = "awslogs"
     options = {
       awslogs-group         = local.awslogs.group
       awslogs-region        = local.awslogs.region
-      awslogs-stream-prefix = "api-calculator"
+      awslogs-stream-prefix = "api"
     }
   }
 
@@ -102,23 +109,23 @@ module "ecs_container_definition_api_calculator" {
   }
 }
 
-resource "aws_appautoscaling_target" "api_calculator" {
+resource "aws_appautoscaling_target" "api" {
   min_capacity = 2
   max_capacity = 5
 
-  resource_id = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.api_calculator.name}"
+  resource_id = "service/${aws_ecs_cluster.main.name}/${aws_ecs_service.api.name}"
 
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
 
-resource "aws_appautoscaling_policy" "api_calculator" {
-  name        = "ecs_cluster_api_calculator"
+resource "aws_appautoscaling_policy" "api" {
+  name        = "ecs_cluster_api"
   policy_type = "TargetTrackingScaling"
 
-  resource_id        = aws_appautoscaling_target.api_calculator.resource_id
-  scalable_dimension = aws_appautoscaling_target.api_calculator.scalable_dimension
-  service_namespace  = aws_appautoscaling_target.api_calculator.service_namespace
+  resource_id        = aws_appautoscaling_target.api.resource_id
+  scalable_dimension = aws_appautoscaling_target.api.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.api.service_namespace
 
   target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
