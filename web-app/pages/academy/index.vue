@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto pt-6 pb-48 bg-goldman-grey h-full overflow-hidden">
+  <div class="container mx-auto pt-6 pb-20 bg-goldman-grey h-full overflow-hidden">
     <div class="rounded-lg full-width px-6">
       <h2 class="text-gray-900 text-4xl">Academy</h2>
     </div>
@@ -11,14 +11,14 @@
       </div>
     </div>
     <div class="rounded-lg">
-      <h2 class="text-gray-900 text-xl px-6">Videos</h2>
+      <h2 class="text-gray-900 text-xl px-6 mt-5">Videos</h2>
       <div class="flex flex-no-wrap overflow-x-auto scrolling-touch pl-6">
         <video-playlist-card v-for="playlist in playlists" :key="playlist.name" class="py-4 mr-3"
                              style="flex: 0 0 auto; width: 300px" :playlist="playlist"></video-playlist-card>
       </div>
     </div>
     <div class="rounded-lg">
-      <h2 class="text-gray-900 text-xl px-6">Calculators</h2>
+      <h2 class="text-gray-900 text-xl px-6  mt-5">Calculators</h2>
       <div class="flex flex-no-wrap overflow-x-auto scrolling-touch pl-6">
         <calculator-card v-for="calculator in calculators" :key="calculator.name" class="py-4 mr-3"
                              style="flex: 0 0 auto; width: 300px" :playlist="calculator"></calculator-card>
