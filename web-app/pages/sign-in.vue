@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 pt-10 pb-48 bg-goldman-darkGrey h-full">
+  <div class="container mx-auto px-6 pt-10 pb-48 bg-goldman-darkBlue h-full">
     <div class="flex content-center">
       <div class="rounded-lg flex-grow">
         <div class="px-6 py-6 flex-col">

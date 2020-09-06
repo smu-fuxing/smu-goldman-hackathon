@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-goldman-darkGrey">
+  <div class="h-screen bg-goldman-grey">
     <NavHeader/>
     <div>
       <Nuxt/>

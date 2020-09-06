@@ -1,14 +1,16 @@
 <template>
   <div class="rounded">
-    <div class="max-w-sm w-full lg:max-w-full lg:flex shadow">
+    <div class="max-w-sm lg:max-w-full lg:flex shadow">
+    <div class="relative text-white">
       <div
-        class=" lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
-        <img :src="getImageUrl(news.urlToImage)"/>
+        class="newscard h-40 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l overflow-hidden bg-opacity-50"
+        v-bind:style="{ 'background-image': 'url(' + getImageUrl(news.urlToImage) + ')' }">
       </div>
+      <span class="font-bold text-xl mb-2 text-left text-white absolute bottom-0 px-4">{{ news.title }}</span>
+    </div>
       <div
         class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-        <div class="mb-8">
-          <div class="text-gray-900 font-bold text-xl mb-2">{{ news.title }}</div>
+        <div class="">
           <p class="text-gray-700 text-base">{{ getNewsText(news.content) }}</p>
         </div>
       </div>
@@ -31,7 +33,7 @@ export default {
       if (text == null) {
         return ""
       }
-      const limitedText = text.substr(0, 120);
+      const limitedText = text.substr(0, 80);
       if (limitedText.slice(-3) === "...") {
         return limitedText;
       }
@@ -52,8 +54,20 @@ a {
   text-decoration: none;
 }
 
-.on-hover {
-  transition: 0.3s;
-  opacity: 0.7;
+.newscard::before {
+  content: "";
+  display: block;
+  -webkit-filter: blur(1px) brightness(0.5);
+  -moz-filter: blur(1px) brightness(0.5);
+  -ms-filter: blur(1px) brightness(0.5);
+  -o-filter: blur(1px) brightness(0.5);
+  filter: blur(1px) brightness(0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  z-index: 0;
 }
 </style>

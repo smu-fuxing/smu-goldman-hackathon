@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 pt-6 pb-48 bg-goldman-darkGrey h-full">
+  <div class="container mx-auto px-6 pt-6 pb-48 bg-goldman-darkBlue h-full">
     <div class="flex content-center">
       <div class="rounded-lg flex-grow">
         <h2 class="text-white text-4xl">Financial News</h2>

@@ -12,14 +12,14 @@
             <label class="block text-white text-sm font-bold mb-2" for="username">
               Username
             </label>
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" placeholder="Username"/>
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkBlue bg-goldman-lightGrey bg-opacity-75" placeholder="Username"/>
           </div>
 
           <div class="mt-4">
             <label class="block text-white text-sm font-bold mb-2" for="username">
               Password
             </label>
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" type="password"
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkBlue bg-goldman-lightGrey bg-opacity-75" type="password"
                    placeholder="Password"/>
           </div>
 
@@ -27,14 +27,14 @@
             <label class="block text-white text-sm font-bold mb-2" for="username">
               Confirm Password
             </label>
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" type="password"
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkBlue bg-goldman-lightGrey bg-opacity-75" type="password"
                    placeholder="Password"/>
           </div>
 
           <div class="mt-20">
             <n-link to="/app">
               <button
-                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkGrey hover:bg-gray-700 focus:outline-none">
+                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
                 Create Account
               </button>
             </n-link>

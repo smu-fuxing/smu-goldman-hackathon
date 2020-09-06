@@ -26,9 +26,11 @@ module.exports = {
           '900': '#11294D',
         },
         goldman: {
-          'darkGrey': '#4B4D5A',
+          'darkBlue': '#112D63',
           'accent': '#7F99BF',
-          'lightGrey': '#9ea2c0'
+          'lightGrey': '#9ea2c0',
+          'grey': '#F3F4F5',
+          'gold': '#CAA060'
         }
       }
     },
