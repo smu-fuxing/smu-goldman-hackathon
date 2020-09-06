@@ -61,6 +61,11 @@ resource "aws_ecs_task_definition" "api_news" {
 EOF
 
   requires_compatibilities = ["EC2"]
+
+  lifecycle {
+    // This will get edited by GitHub Actions
+    ignore_changes = [container_definitions]
+  }
 }
 
 module "ecs_container_definition_api_news" {
