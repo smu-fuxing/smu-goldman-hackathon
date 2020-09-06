@@ -101,7 +101,7 @@ EOF
 
   min_size                  = 2
   max_size                  = 4
-  desired_capacity          = 4
+  desired_capacity          = 2
   wait_for_capacity_timeout = 0
 }
 
