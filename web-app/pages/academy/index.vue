@@ -45,7 +45,7 @@ export default {
     }
   },
   async asyncData({$axios}) {
-    const data = await $axios.$get("/api/academy")
+    const data = await $axios.$get("https://api.mavis-gs.com/news/academy")
     return {articles: data.articles}
   },
 }
