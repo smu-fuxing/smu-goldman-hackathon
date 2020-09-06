@@ -60,6 +60,7 @@ data "aws_iam_policy_document" "execution" {
     resources = [
       aws_secretsmanager_secret.github_token.arn,
       aws_secretsmanager_secret.news_api_token.arn,
+      aws_secretsmanager_secret.fa_api_key.arn,
       aws_kms_key.default.arn
     ]
   }
