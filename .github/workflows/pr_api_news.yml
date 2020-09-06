@@ -1,4 +1,4 @@
-name: "api: pr to master"
+name: "api-news: pr to master"
 
 on:
   pull_request:
@@ -8,8 +8,7 @@ on:
       - 'api-news/**'
 
 jobs:
-  ci_build_image:
-    name: Build Docker image
+  build-api-news:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
