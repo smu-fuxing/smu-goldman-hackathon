@@ -3,27 +3,30 @@ resource "aws_ecs_cluster" "main" {
 }
 
 resource "aws_iam_policy" "cluster" {
-  name = "Mavis_GS_Cluster_Policy"
+  name   = "Mavis_GS_Cluster_Policy"
   policy = data.aws_iam_policy_document.cluster.json
 }
 
 data "aws_iam_policy_document" "cluster" {
   statement {
-    sid = "RegisterTaskDefinition"
+    sid    = "RegisterTaskDefinition"
     effect = "Allow"
+
     actions = [
       "ecs:RegisterTaskDefinition"
     ]
-    resources = [
-      "*"]
+
+    resources = ["*"]
   }
 
   statement {
-    sid = "PassRolesInTaskDefinition"
+    sid    = "PassRolesInTaskDefinition"
     effect = "Allow"
+
     actions = [
       "iam:PassRole"
     ]
+
     resources = [
       aws_iam_role.execution.arn,
       aws_iam_role.task.arn
@@ -31,14 +34,15 @@ data "aws_iam_policy_document" "cluster" {
   }
 
   statement {
-    sid = "DeployService"
+    sid    = "DeployService"
     effect = "Allow"
+
     actions = [
       "ecs:UpdateService",
       "ecs:DescribeServices",
       "ecs:DescribeTaskDefinition"
     ]
-    resources = [
-      "*"]
+
+    resources = ["*"]
   }
 }
