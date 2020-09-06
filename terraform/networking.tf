@@ -27,7 +27,7 @@ module "lb" {
 
   target_groups = [
     {
-      name_prefix      = "calc-"
+      name_prefix      = "api-"
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"

@@ -26,7 +26,7 @@ resource "aws_ecs_service" "api" {
   load_balancer {
     target_group_arn = module.lb.target_group_arns[0]
     container_name   = "service"
-    container_port   = 5000
+    container_port   = 80
   }
 
   ordered_placement_strategy {
