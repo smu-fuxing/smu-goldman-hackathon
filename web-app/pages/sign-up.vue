@@ -1,36 +1,47 @@
 <template>
-  <div class="container mx-auto px-6 pt-10 pb-48">
+  <div class="container mx-auto px-6 pt-10">
     <div class="flex content-center">
-      <div class="rounded-lg bg-gray-200 flex-grow">
+      <div class="rounded-lg flex-grow">
         <div class="px-6 py-6 flex-col">
-          <h2>Sign Up</h2>
+          <img src="~/static/Goldman_Sachs.svg" class="rounded w-24"/>
+        </div>
+        <div class="px-6 py-6 flex-col">
+          <h2 class="text-white text-4xl">Welcome</h2>
 
           <div class="mt-4">
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none" placeholder="Email"/>
+            <label class="block text-white text-sm font-bold mb-2" for="username">
+              Username
+            </label>
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" placeholder="Username"/>
           </div>
 
           <div class="mt-4">
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none" type="password"
+            <label class="block text-white text-sm font-bold mb-2" for="username">
+              Password
+            </label>
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" type="password"
                    placeholder="Password"/>
           </div>
 
           <div class="mt-4">
-            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none" type="password"
-                   placeholder="Confirm Password"/>
+            <label class="block text-white text-sm font-bold mb-2" for="username">
+              Confirm Password
+            </label>
+            <input class="w-full text-lg px-3 py-2 rounded bg-white focus:outline-none placeholder-goldman-darkGrey bg-goldman-lightGrey bg-opacity-75" type="password"
+                   placeholder="Password"/>
           </div>
 
-          <div class="mt-6">
+          <div class="mt-20">
             <n-link to="/app">
               <button
-                class="w-full py-2 px-4 font-bold bg-blue-600 text-lg rounded text-white hover:bg-gray-700 focus:outline-none">
-                Sign Up
+                class="w-full py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkGrey hover:bg-gray-700 focus:outline-none">
+                Create Account
               </button>
             </n-link>
           </div>
-
           <div class="mt-4">
             <n-link to="/sign-in" class="">
-              <div class="text-sm text-center leading-snug">
+              <div class="text-sm text-center leading-snug text-white text-opacity-75">
                 Already have an account? <u>You can sign in here</u>.
               </div>
             </n-link>
@@ -42,7 +53,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  layout: 'no-nav',
+}
 </script>
 
 <style>

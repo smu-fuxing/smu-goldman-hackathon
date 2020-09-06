@@ -1,8 +1,8 @@
 <template>
-  <div class="shadow bg-blue-600 text-white">
+  <div class="shadow text-white bg-goldman-lightGrey">
     <div class="container mx-auto px-6">
       <nav class="py-3 flex items-center justify-between">
-        <h2>Mavis</h2>
+        <h2 class="text-goldman-darkGrey">Mavis</h2>
       </nav>
     </div>
   </div>

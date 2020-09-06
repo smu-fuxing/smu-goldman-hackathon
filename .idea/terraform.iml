@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/terraform">
+      <excludeFolder url="file://$MODULE_DIR$/terraform/.terraform" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
