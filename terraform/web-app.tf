@@ -32,8 +32,11 @@ data "aws_iam_policy_document" "cf_web_policy" {
     effect = "Allow"
     actions = [
       "s3:PutObject",
+      "s3:PutObjectAcl",
       "s3:GetObject",
-      "s3:DeleteObject"
+      "s3:ListBucket",
+      "s3:DeleteObject",
+      "s3:GetBucketLocation"
     ]
     resources = [
       module.cf_web.s3_bucket_arn,
