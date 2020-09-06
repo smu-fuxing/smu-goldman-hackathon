@@ -74,7 +74,7 @@ module "ecs_container_definition_api_news" {
 
   container_name               = "service"
   container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-news:v0.5.0"
-  container_memory_reservation = 256
+  container_memory_reservation = 128
 
   essential = true
 

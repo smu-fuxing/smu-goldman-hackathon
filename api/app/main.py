@@ -8,9 +8,10 @@ import education.calculator.retirementAgePrediction.retirementAgePrediction as r
 import marketplace.perf_analysis as pa
 from datetime import date
 from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/api/mortgage-loan')
 def calculateMortgageLoan():
