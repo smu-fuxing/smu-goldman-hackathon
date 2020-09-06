@@ -13,7 +13,8 @@
     "@nuxtjs/axios": "^5.12.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
     "express": "^4.17.1",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "vue-youtube-embed": "^2.2.2"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^2.1.0",

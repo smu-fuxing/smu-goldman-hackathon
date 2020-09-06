@@ -1,6 +1,6 @@
 <template>
   <div class="flex-col">
-    <h2 class="text-white text-xl md:text-2xl mb-10">Getting Started</h2>
+    <h2 class="text-white text-xl md:text-2xl mb-10 text-goldman-gold">Getting Started</h2>
     <div class="flex">
       <div class="flex flex-col w-1/3 pr-2">
         <text-input :item="{name: 'Age'}"></text-input>

@@ -11,7 +11,7 @@ const newsApi = axios.create({
   },
 });
 
-app.get("/api/news", async (req, res, next) => {
+app.get("/api/academy", async (req, res, next) => {
   // const endpoint = "https://newsapi.org/v2/everything?domains=afr.com,businessinsider.com";
   const endpoint = "https://newsapi.org/v2/everything?q=wealth&sortBy=popularity";
   newsApi.get(endpoint)
