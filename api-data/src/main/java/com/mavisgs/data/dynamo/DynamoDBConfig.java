@@ -6,10 +6,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class DynamoDBConfig {
 
+	@Primary
 	@Bean
 	public DynamoDBMapperConfig dynamoDBMapperConfig() {
 		return DynamoDBMapperConfig.DEFAULT;
