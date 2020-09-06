@@ -14,7 +14,7 @@ def validate_tickers(tickers):
 
 def validate_period(period):
   if period not in ['annual', 'quarter']:
-    return ValueError("Period can only be 'annual' or 'quarter'.")
+    raise ValueError("Period must be either annual or quarter.")
 
 
 def get_supported_exchanges():
