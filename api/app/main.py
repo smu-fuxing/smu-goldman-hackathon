@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import analysis.fundamental_analysis as fa
+import yahoo.financial_data as fd
 
 app = Flask(__name__)
 
@@ -85,6 +86,32 @@ def ticker_metrics(ticker):
 
   try:
     data = fa.get_key_metrics(ticker, period)
+  except ValueError as e:
+    return jsonify({'error': str(e)}), 400
+  return jsonify({'data': data}), 200
+
+
+@app.route('/api/yahoo-financials')  # daily, weekly, monthly intervals
+def yahoo_financials():
+  tickers = request.args.getlist('ticker', type=str)
+  time_interval = request.args.get('interval')
+  start_date = request.args.get('start')
+
+  try:
+    data = fd.get_yahoo_financials(tickers, start_date) if time_interval is None else fd.get_yahoo_financials(tickers, start_date, time_interval)
+  except ValueError as e:
+    return jsonify({'error': str(e)}), 400
+  return jsonify({'data': data}), 200
+
+
+@ app.route('/api/yfinance')  # 1d,5d,1wk,1mo,3mo intervals
+def yfinance():
+  tickers = request.args.getlist('ticker', type=str)
+  time_interval = request.args.get('interval')
+  start_date = request.args.get('start')
+
+  try:
+    data = fd.get_yfinance(tickers, start_date) if time_interval is None else fd.get_yfinance(tickers, start_date, time_interval)
   except ValueError as e:
     return jsonify({'error': str(e)}), 400
   return jsonify({'data': data}), 200
