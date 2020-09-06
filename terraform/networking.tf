@@ -7,6 +7,9 @@ module "vpc" {
 
   azs            = ["ap-southeast-1a", "ap-southeast-1b"]
   public_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+
+  // TODO(fuxing): Enable private SUBNET for compute
+
   //  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
 
   //  enable_nat_gateway     = true
@@ -36,14 +39,20 @@ module "lb" {
       backend_protocol = "HTTPS"
       backend_port     = 443
       target_type      = "instance"
+    },
+    {
+      name_prefix      = "news-"
+      backend_protocol = "HTTPS"
+      backend_port     = 443
+      target_type      = "instance"
     }
   ]
 
   https_listeners = [
     {
-      port               = 443
-      protocol           = "HTTPS"
-      certificate_arn    = aws_acm_certificate_validation.api_cert.certificate_arn
+      port            = 443
+      protocol        = "HTTPS"
+      certificate_arn = aws_acm_certificate_validation.api_cert.certificate_arn
     }
   ]
 

@@ -2,22 +2,12 @@ resource "aws_iam_role" "task" {
   name = "ECS_TASK"
 
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks.json
-
-  tags = {
-    Terraform = "true"
-    Workspace = terraform.workspace
-  }
 }
 
 resource "aws_iam_role" "execution" {
   name = "ECS_EXECUTION"
 
   assume_role_policy = data.aws_iam_policy_document.ecs_tasks.json
-
-  tags = {
-    Terraform = "true"
-    Workspace = terraform.workspace
-  }
 }
 
 data "aws_iam_policy_document" "ecs_tasks" {
@@ -37,17 +27,20 @@ resource "aws_iam_role_policy" "execution" {
   role = aws_iam_role.execution.id
 
   policy = data.aws_iam_policy_document.execution.json
-
-  tags = {
-    Terraform = "true"
-    Workspace = terraform.workspace
-  }
 }
 
 data "aws_iam_policy_document" "execution" {
   statement {
     effect = "Allow"
     actions = [
+      "ec2:DescribeTags",
+      "ecs:DeregisterContainerInstance",
+      "ecs:DiscoverPollEndpoint",
+      "ecs:Poll",
+      "ecs:RegisterContainerInstance",
+      "ecs:StartTelemetrySession",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:Submit*",
       "ecr:GetAuthorizationToken",
       "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
@@ -66,6 +59,7 @@ data "aws_iam_policy_document" "execution" {
     ]
     resources = [
       aws_secretsmanager_secret.github_token.arn,
+      aws_secretsmanager_secret.news_api_token.arn,
       aws_kms_key.default.arn
     ]
   }
@@ -74,11 +68,6 @@ data "aws_iam_policy_document" "execution" {
 resource "aws_iam_instance_profile" "ecs" {
   name = "ECS_INSTANCE_PROFILE"
   role = aws_iam_role.ecs.name
-
-  tags = {
-    Terraform = "true"
-    Workspace = terraform.workspace
-  }
 }
 
 resource "aws_iam_role" "ecs" {
@@ -86,11 +75,6 @@ resource "aws_iam_role" "ecs" {
   path = "/"
 
   assume_role_policy = data.aws_iam_policy_document.ecs.json
-
-  tags = {
-    Terraform = "true"
-    Workspace = terraform.workspace
-  }
 }
 
 data "aws_iam_policy_document" "ecs" {
