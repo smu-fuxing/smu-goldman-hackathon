@@ -22,7 +22,23 @@
     <div class="mt-10">
       <h2 class="text-gray-900 text-xl px-6 text-goldman-gold">Holdings</h2>
       <div v-for="(holding, index) in holdings" :class="{ 'bg-gray-300' : index % 2 === 1}">
-        <div class="flex items-center justify-between mr-2 py-3">
+        <nuxt-link v-if="holding.name === 'Stocks'" to="/dashboard/stock">
+          <div class="flex items-center justify-between mr-2 py-3">
+            <div class="">
+              <p class="ml-6 text-lg font-bold">{{ holding.name }}</p>
+            </div>
+            <div class="mr-4 text-right">
+              <p class="text-md">{{ holding.balance }}</p>
+              <template v-if="holding.change !== undefined">
+                <p v-if="holding.change.type === 'positive'" class="text-sm text-green-700">
+                  {{ '+' + holding.change.value + ' (+' + holding.change.percentage + '%)' }}</p>
+                <p v-else class="text-sm text-red-700">
+                  {{ '-' + holding.change.value + ' (-' + holding.change.percentage + '%)' }}</p>
+              </template>
+            </div>
+          </div>
+        </nuxt-link>
+        <div v-else class="flex items-center justify-between mr-2 py-3">
           <div class="">
             <p class="ml-6 text-lg font-bold">{{ holding.name }}</p>
           </div>
