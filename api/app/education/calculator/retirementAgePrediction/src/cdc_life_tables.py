@@ -102,7 +102,7 @@ groups = ['total', 'male', 'female',
           'black', 'bm', 'bf', ]
 
 cdc_url = 'http://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/NVSR/60_09/'
-lt_dir = '/data/cdc/'
+lt_dir = '/education/calculator/retirementAgePrediction/data/cdc/'
 
 try:
     lt_dir = os.getcwd() + lt_dir

@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import uncertainties as unc
 import uncertainties.unumpy as unp
-from src import shiller
-from src import simulation
+from education.calculator.retirementAgePrediction.src import shiller
+from education.calculator.retirementAgePrediction.src import simulation
 from scipy import stats
 
 # loop = 10000

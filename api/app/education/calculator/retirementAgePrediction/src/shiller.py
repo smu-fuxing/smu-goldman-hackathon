@@ -6,7 +6,7 @@ try:
 except:
     import urllib.request as urllib2  # python3
 
-csv_file = os.getcwd() + '/data/shiller.csv'
+csv_file = os.getcwd() + '/education/calculator/retirementAgePrediction/data/shiller.csv'
 
 if not os.path.exists(csv_file):
     xls_url = 'http://www.econ.yale.edu/~shiller/data/chapt26.xlsx'

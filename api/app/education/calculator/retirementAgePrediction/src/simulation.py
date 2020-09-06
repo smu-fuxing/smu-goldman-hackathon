@@ -1,7 +1,7 @@
 import numpy as np
 
-from src.shiller import *
-from src.cdc_life_tables import *
+from education.calculator.retirementAgePrediction.src import shiller
+from education.calculator.retirementAgePrediction.src import cdc_life_tables
 
 
 def run_histories(starting_assets,
