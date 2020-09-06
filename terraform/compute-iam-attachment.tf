@@ -1,5 +1,5 @@
 resource "aws_iam_role_policy_attachment" "dynamodb" {
-  role       = aws_iam_role.task.id
+  role       = aws_iam_role.task_role.id
   policy_arn = aws_iam_policy.dynamodb.arn
 }
 
