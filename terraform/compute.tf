@@ -8,17 +8,79 @@ data "aws_ssm_parameter" "ecs_optimized_ami" {
   name = "/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id"
 }
 
+resource "aws_iam_instance_profile" "asg_mavis" {
+  name = "ECS_INSTANCE_PROFILE"
+  role = aws_iam_role.asg_mavis.name
+}
+
+resource "aws_iam_role" "asg_mavis" {
+  name = "ECS_INSTANCE_PROFILE_ROLE"
+  path = "/"
+
+  assume_role_policy = data.aws_iam_policy_document.asg_mavis.json
+}
+
+data "aws_iam_policy_document" "asg_mavis" {
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_policy_attachment" "asg_mavis" {
+  name       = "ASG_MAVIS_ECS_ATTACHMENT"
+  roles      = [aws_iam_role.asg_mavis.name]
+  policy_arn = aws_iam_policy.asg_mavis_instance.arn
+}
+
+resource "aws_iam_policy" "asg_mavis_instance" {
+  name = "ASG_MAVIS_ECS_POLICY"
+
+  policy = data.aws_iam_policy_document.asg_mavis_instance.json
+}
+
+
+data "aws_iam_policy_document" "asg_mavis_instance" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "ec2:DescribeTags",
+      "ecs:DeregisterContainerInstance",
+      "ecs:DiscoverPollEndpoint",
+      "ecs:Poll",
+      "ecs:RegisterContainerInstance",
+      "ecs:StartTelemetrySession",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:Submit*",
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:BatchGetImage",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+    resources = ["*"]
+  }
+}
+
+
+
 module "asg_mavis" {
   source  = "terraform-aws-modules/autoscaling/aws"
   version = "~> 3.0"
 
-  name    = "MAVIS"
+  name    = "MAVIS t2.micro"
   lc_name = "MAVIS_LC"
 
   image_id             = data.aws_ssm_parameter.ecs_optimized_ami.value
   instance_type        = "t2.micro"
   security_groups      = [aws_security_group.cluster.id]
-  iam_instance_profile = aws_iam_instance_profile.ecs.name
+  iam_instance_profile = aws_iam_instance_profile.asg_mavis.name
 
   user_data = <<-EOF
 #!/bin/bash
@@ -37,18 +99,10 @@ EOF
   vpc_zone_identifier = module.vpc.private_subnets
   health_check_type   = "EC2"
 
-  min_size                  = 1
+  min_size                  = 3
   max_size                  = 4
-  desired_capacity          = 2
+  desired_capacity          = 3
   wait_for_capacity_timeout = 0
-
-  tags = [
-    {
-      key                 = "Name"
-      value               = "MAVIS t2.micro"
-      propagate_at_launch = true
-    }
-  ]
 }
 
 resource "aws_autoscaling_policy" "asg_mavis" {
@@ -62,6 +116,6 @@ resource "aws_autoscaling_policy" "asg_mavis" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
 
-    target_value = 20.0
+    target_value = 50.0
   }
 }

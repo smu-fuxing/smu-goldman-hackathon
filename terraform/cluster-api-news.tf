@@ -43,7 +43,7 @@ resource "aws_ecs_service" "api_news" {
   scheduling_strategy = "REPLICA"
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [desired_count, task_definition]
   }
 }
 
@@ -51,8 +51,8 @@ resource "aws_ecs_task_definition" "api_news" {
   family = "api-news"
 
   network_mode       = "bridge"
-  task_role_arn      = aws_iam_role.task.arn
-  execution_role_arn = aws_iam_role.execution.arn
+  task_role_arn      = aws_iam_role.task_role.arn
+  execution_role_arn = aws_iam_role.execution_role.arn
 
   container_definitions = <<-EOF
 [
@@ -73,8 +73,8 @@ module "ecs_container_definition_api_news" {
   version = "0.41.0"
 
   container_name               = "service"
-  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-news:latest"
-  container_memory_reservation = 256
+  container_image              = "docker.pkg.github.com/fuxingloh/smu-goldman-hackathon/api-news:v0.5.0"
+  container_memory_reservation = 128
 
   essential = true
 

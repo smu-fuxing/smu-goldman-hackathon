@@ -1,8 +1,6 @@
 package com.mavisgs.data;
 
-import com.amazonaws.services.dynamodbv2.model.Record;
 import com.mavisgs.data.dynamo.User;
-import com.mavisgs.data.dynamo.UserItemRepository;
 import com.mavisgs.data.dynamo.UserRepository;
 import org.springframework.web.bind.annotation.*;
 

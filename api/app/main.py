@@ -7,8 +7,11 @@ import education.calculator.retirementCalculator as rc
 import education.calculator.retirementAgePrediction.retirementAgePrediction as rap
 import marketplace.perf_analysis as pa
 from datetime import date
+from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/api/mortgage-loan')
 def calculateMortgageLoan():
@@ -22,6 +25,7 @@ def calculateMortgageLoan():
   data = rc.calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date)
   return jsonify({'data': data}), 200
 
+
 @app.route('/api/retirement-calculator')
 def retirementCalculator():
   current_age = request.args.get('current_age', type=int)
@@ -33,6 +37,7 @@ def retirementCalculator():
   data = rc.retirement_calculator(current_age=current_age, yearly_contribution=yearly_contribution, current_savings=current_savings,  retirement_age=retirement_age, avg_annual_return=avg_annual_return)
   return jsonify({'data': data}), 200
 
+
 @app.route('/api/retirement-age')
 def retirementage_prediction():
   loop = request.args.get('loop', type=int)
@@ -40,23 +45,25 @@ def retirementage_prediction():
   yearly_expense = request.args.get('year_expense', type=int)
   starting_assets = request.args.get('start_assets', type=int)
   stock_fraction = request.args.get('stock_frac', type=float)
-  state_abbrev = request.args.get('init_cap', type=str)
-  demographic_group = request.args.get('demo', type=str)
 
-  data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction,state_abbrev, demographic_group)
+  data = rap.retirementAgePrediction(loop, starting_age, yearly_expense, starting_assets, stock_fraction)
   return jsonify({'data': data}), 200
+
 
 @app.route('/api/perf-analysis')
 def perfAnalysis():
-  tickers = request.args.getlist('ticker', type=str)
-  start = request.args.get('start', type=date)
-  end = request.args.get('end', type=date)
+  tickers = request.args.getlist('tickers', type=str)
+  start = request.args.get('start', type=str)
+  end = request.args.get('end', type=str)
+  datestart = datetime.strptime(start, "%d%m%Y").date()
+  dateend = datetime.strptime(end, "%d%m%Y").date()
   riskfree_rate = request.args.get('riskfree_rate', type=float)
   portf_weights = request.args.getlist('weights', type=float)
   init_cap = request.args.get('init_cap', type=int)
 
-  data = pa.perfAnalysis(tickers, start, end, riskfree_rate, portf_weights, init_cap)
+  data = pa.perfAnalysis(tickers, datestart, dateend, riskfree_rate, portf_weights, init_cap)
   return jsonify({'data': data}), 200
+
 
 @app.route('/api/profiles')  # /profiles?ticker=PIH&ticker=TSLA&ticker=FCCY
 def ticker_profiles():
@@ -168,6 +175,11 @@ def yfinance():
   except ValueError as e:
     return jsonify({'error': str(e)}), 400
   return jsonify({'data': data}), 200
+
+
+@app.route('/_healthcheck')  # 1d,5d,1wk,1mo,3mo intervals
+def healthcheck():
+  return jsonify({'data': 'ok'}), 200
 
 
 if __name__ == '__main__':

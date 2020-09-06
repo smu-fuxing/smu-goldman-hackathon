@@ -17,3 +17,4 @@ FundamentalAnalysis==0.2.6
 yahoofinancials==1.5
 scipy==1.5.2
 xlrd==1.2.0
+flask-cors
