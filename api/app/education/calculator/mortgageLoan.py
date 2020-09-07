@@ -7,7 +7,7 @@ from datetime import date
 # interest = 0.04
 # years = 30
 # payments_year = 12
-# start_date = (date(2021, 1, 1))
+# start_date = 01012021
 
 def calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date):
 
