@@ -59,15 +59,14 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
     def  CIMB_fastsaver(bank_balance):
         #CIMB FastSaver
         if bank_balance < 50000:
-            total_amount = 0.5 * bank_balance
+            bank_interest = 0.5/100 * bank_balance
         elif 50000 <= bank_balance < 75000:
-            total_amount = (0.5/100 * 50000) + ((bank_balance - 50000) * 0.8/100)
+            bank_interest = (0.5/100 * 50000) + ((bank_balance - 50000) * 0.8/100)
         elif 75000 <= bank_balance < 100000:
-            total_amount = (0.5/100 * 50000) + (250000 * 0.8/100) + ((bank_balance - 75000) * 1.5/100)
+            bank_interest = (0.5/100 * 50000) + (250000 * 0.8/100) + ((bank_balance - 75000) * 1.5/100)
         else:
-            total_amount = (0.5/100 * 50000) + (250000 * 0.8/100) + (25000 * 1.5/100) 
+            bank_interest = (0.5/100 * 50000) + (250000 * 0.8/100) + (25000 * 1.5/100) 
 
-        bank_interest = total_amount - bank_balance
         return bank_interest
 
     def  DBS_multiplier(bank_balance, monthly__salary_credited, unit_trust_annual_lum_sum_investment, unit_trust_monthly_investment, home_loan_monthly_installment, insurance_annual_expenditure):
@@ -136,7 +135,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
     def singlife_account(bank_balance):
     
         if bank_balance > 500 and bank_balance < 10000:
-            bank_interest = 0.025
+            bank_interest = 2.5/100
         else:
             bank_interest = 0
 
@@ -145,7 +144,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
     def singtel_dash_easyearn(bank_balance):
 
         if bank_balance > 2000 and bank_balance < 20000:
-            bank_interest = 0.02
+            bank_interest = 2/100
         else:
             bank_interest = 0
         
@@ -154,7 +153,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
     def etiqa_elastiq(bank_balance):
 
         if bank_balance > 5000 and bank_balance < 50000:
-            bank_interest = 0.018
+            bank_interest = 1.8/100
         else:
             bank_interest = 0
         
