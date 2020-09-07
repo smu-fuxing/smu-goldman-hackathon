@@ -1,4 +1,4 @@
-# Mavis GS 
+# Mavis GS (Mobile)
 > SMU SIS Goldman AWS Bloomberg Hackathon
 
 ![release published](https://github.com/fuxingloh/smu-goldman-hackathon/workflows/release%20published/badge.svg)
