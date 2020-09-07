@@ -20,9 +20,9 @@ def calculateMortgageLoan():
   interest = request.args.get('interest', type=float)
   years = request.args.get('years', type=int)
   payments_year = request.args.get('payments_year', type=int)
-  start_date = request.args.get('start_date', type=date)
-
-  data = rc.calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date)
+  start_date = request.args.get('start_date', type=str)
+  datestart = datetime.strptime(start_date, "%d%m%Y").date()
+  data = ml.calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, datestart)
   return jsonify({'data': data}), 200
 
 
@@ -33,7 +33,6 @@ def retirementCalculator():
   current_savings = request.args.get('current_savings', type=int)
   retirement_age = request.args.get('retire_age', type=int)
   avg_annual_return = request.args.get('avg_annual_return', type=float)
-
   data = rc.retirement_calculator(current_age=current_age, yearly_contribution=yearly_contribution, current_savings=current_savings,  retirement_age=retirement_age, avg_annual_return=avg_annual_return)
   return jsonify({'data': data}), 200
 
