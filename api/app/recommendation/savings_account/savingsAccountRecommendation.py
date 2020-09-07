@@ -10,7 +10,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
         else:
             bank_interest = 0.01
 
-        return bank_interest/100 * bank_balance
+        return round(bank_interest/100 * bank_balance,2)
 
     def standard_chartered_bonussaver(bank_balance, monthly__salary_credited, no_bills_per_month, monthly_credit_card, 
                                     home_loan_monthly_installment, insurance_annual_expenditure):
@@ -35,7 +35,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
         if insurance_annual_expenditure > 0:
             bank_interest += 0.85
         
-        return bank_interest/100 * bank_balance
+        return round(bank_interest/100 * bank_balance,2)
 
     def BOC_smartsaver(bank_balance, monthly__salary_credited, no_bills_per_month, monthly_credit_card):
         #BOC SmartSaver
@@ -54,7 +54,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
             if bank_interest < 0.3:
                 bank_interest = 0.3
         
-        return bank_interest/100 * bank_balance
+        return round(bank_interest/100 * bank_balance,2)
 
     def  CIMB_fastsaver(bank_balance):
         #CIMB FastSaver
@@ -67,7 +67,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
         else:
             bank_interest = (0.5/100 * 50000) + (250000 * 0.8/100) + (25000 * 1.5/100) 
 
-        return bank_interest
+        return round(bank_interest,2)
 
     def  DBS_multiplier(bank_balance, monthly__salary_credited, unit_trust_annual_lum_sum_investment, unit_trust_monthly_investment, home_loan_monthly_installment, insurance_annual_expenditure):
         #DBS Multiplier
@@ -107,7 +107,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
         elif category_count == 1:
             bank_interest += 0.3
         
-        return bank_balance * bank_interest/100
+        return round(bank_balance * bank_interest/100,2)
 
     def OCBC360(bank_balance, unit_trust_annual_lum_sum_investment, unit_trust_monthly_investment, insurance_annual_expenditure):
         #OCBC360
@@ -120,7 +120,7 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
             bank_interest += 0.6
         #if current bank balance > 500 than previous month + 0.2
 
-        return bank_balance * bank_interest/100
+        return round(bank_balance * bank_interest/100,2)
 
     def UOB_One(bank_balance, monthly__salary_credited, monthly_credit_card, no_bills_per_month):
         #UOB One
@@ -130,34 +130,34 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
         elif no_bills_per_month > 3 + monthly_credit_card > 500:
             bank_interest = 0.75
 
-        return bank_balance * bank_interest/100
+        return round(bank_balance * bank_interest/100,2)
         
     def singlife_account(bank_balance):
     
         if bank_balance > 500 and bank_balance < 10000:
-            return 0.025 * bank_balance
+            return round(0.025 * bank_balance,2)
         elif bank_balance < 500:
             return 0
         else: 
-            return 10000* 0.025
+            return round(10000* 0.025,2)
 
     def singtel_dash_easyearn(bank_balance):
 
         if bank_balance > 2000 and bank_balance < 20000:
-            return 0.02 * bank_balance
+            return round(0.02 * bank_balance,2)
         elif bank_balance < 2000:
             return 0
         else:
-            return 20000 * 0.02
+            return round(20000 * 0.02,2)
 
     def etiqa_elastiq(bank_balance):
 
         if bank_balance > 5000 and bank_balance < 50000:
-            return 0.018 * bank_balance
+            return round(0.018 * bank_balance,2)
         elif bank_balance < 5000:
             return 0
         else:
-            return 50000 * 0.018
+            return round(50000 * 0.018,2)
 
     all_interests = {}
 
