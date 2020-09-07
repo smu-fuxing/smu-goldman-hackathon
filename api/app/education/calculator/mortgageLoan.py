@@ -12,7 +12,7 @@ from datetime import date
 def calculateMortgageLoan(home_price, downpayment, interest, years, payments_year, start_date):
 
     mortgage = home_price - downpayment
-
+    interest = float(interest)/100
     rng = pd.date_range(start_date, periods=years * payments_year, freq='MS')
     rng.name = "Payment Date"
     df = pd.DataFrame(index=rng, columns=['Payment', 'Principal Paid', 'Interest Paid', 'Ending Balance'], dtype='float')
