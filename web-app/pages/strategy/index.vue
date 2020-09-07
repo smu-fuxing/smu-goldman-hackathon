@@ -5,7 +5,7 @@
     </div>
     <div class="rounded-lg">
       <div class="flex justify-between">
-        <p class="text-gray-900 text-xl px-6 font-bold">Stocks</p>
+        <p class="text-gray-900 text-xl px-6 font-bold">Fundamental Analysis</p>
       </div>
       <div>
         <div class="flex pt-4">
@@ -13,23 +13,27 @@
             <select @change="getStocks($event)"
                     class="text-lg px-3 py-2 rounded focus:outline-none bg-transparent border-2 border-goldman-darkBlue text-goldman-darkBlue bg-opacity-75"
                     style="height: 47px">
-              <option v-for="stock in holdings.stocks" :value="stock">{{ stock }}</option>
+              <option v-for="(stock, index) in holdings.stocks" :value="index">{{ stock }}</option>
             </select>
           </div>
         </div>
         <div>
-          <div v-for="(datum, index) in stockData" :class="{ 'bg-gray-300' : index % 2 === 0}">
-            <div class="flex items-center justify-between mx-4 py-3">
-              <div class="flex items-center">
-                <div class="ml-3">
-                  <p class="text-md font-bold">{{ index }}</p>
-                </div>
-              </div>
-              <div class="mr-4">
-                <p class="text-md">{{ datum['Portf'].toFixed(4) }}</p>
-              </div>
-            </div>
-          </div>
+          <table class="table-auto">
+            <thead>
+            <tr>
+              <th class="px-4 py-2"></th>
+              <th class="px-4 py-2">Score</th>
+              <th class="px-4 py-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(datum, index) in data" :class="{ 'bg-gray-300' : index % 2 === 0}">
+              <td class="border px-4 py-2">{{ datum.label }}</td>
+              <td class="border px-4 py-2">{{ datum.value }}</td>
+              <td class="border px-4 py-2">{{ datum.remarks }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -47,39 +51,108 @@ export default {
   },
   data() {
     return {
-      stockData: {},
+      data : {},
       holdings: {
-        total: "SGD 3,363.33",
         data: [
-          {
-            label: 'Cumulative Returns ($)',
-            value: "-371.87",
+          [{
+            label: 'Prove To Book',
+            value: "5",
+            remarks: "Strong Buy",
           },
-          {
-            label: 'Annualized Returns',
-            value: "0.3881",
+            {
+              label: 'Return on Assets',
+              value: "3",
+              remarks: "Strong Buy",
+            },
+            {
+              label: 'Discounted Cash Flow',
+              value: "5",
+              remarks: "Strong Buy",
+            },
+            {
+              label: 'Price to Earning',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Return on Equity',
+              value: "2",
+              remarks: "Sell",
+            },
+            {
+              label: 'Depth to Equity',
+              value: "5",
+              remarks: "Neutral",
+            }],
+          [{
+            label: 'Prove To Book',
+            value: "4",
+            remarks: "Neutral",
           },
-          {
-            label: 'Annualized Volatility',
-            value: "0.2599",
+            {
+              label: 'Return on Assets',
+              value: "5",
+              remarks: "Strong Buy",
+            },
+            {
+              label: 'Discounted Cash Flow',
+              value: "2",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Price to Earning',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Return on Equity',
+              value: "2",
+              remarks: "Sell",
+            },
+            {
+              label: 'Depth to Equity',
+              value: "2",
+              remarks: "Sell",
+            }],
+          [{
+            label: 'Prove To Book',
+            value: "1",
+            remarks: "Sell",
           },
-          {
-            label: 'Annualized Sharpe Ratio',
-            value: "1.4929",
-          },
-          {
-            label: 'Maximum Drawdown',
-            value: "-0.3413",
-          }
+            {
+              label: 'Return on Assets',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Discounted Cash Flow',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Price to Earning',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Return on Equity',
+              value: "4",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Depth to Equity',
+              value: "4",
+              remarks: "Neutral",
+            }]
         ],
-        stocks: ["GOOG", "TSLA"],
-        selectedStock: "GOOG"
-      }
+        stocks: ["GOOG", "TSLA", "APPL"],
+      },
+      selectedIndex: 0
     }
   },
   mounted() {
     this.showLine = true // showLine will only be set to true on the client. This keeps the DOM-tree in sync.
-    this.getStocks('GOOG')
+    this.data = this.holdings.data[0]
   },
   asyncData() {
     const lineData = [40, 39, 10, 40, 39, 80, 40] // some data
@@ -87,26 +160,23 @@ export default {
   },
   methods: {
     getStocks(event) {
-      if (event !== 'GOOG') {
-        this.selectedStock = event.target.value
-      } else {
-        this.selectedStock = 'GOOG'
-      }
-      const data = this.$axios.$get("https://api.mavis-gs.com/api/perf-analysis",
-        {
-          params: {
-            tickers: this.selectedStock,
-            start: "01012020",
-            end: "07092020",
-            init_cap: 1,
-            riskfree_rate: 0,
-            weights: 1,
-          }
-        })
-        .then(response => (this.stockData = response.data))
-        .catch(function (error) {
-          console.log(error);
-        })
+      this.selectedStock = event.target.value
+      this.data = this.holdings.data[this.selectedStock]
+      // const data = this.$axios.$get("https://api.mavis-gs.com/api/perf-analysis",
+      //   {
+      //     params: {
+      //       tickers: this.selectedStock,
+      //       start: "01012020",
+      //       end: "07092020",
+      //       init_cap: 1,
+      //       riskfree_rate: 0,
+      //       weights: 1,
+      //     }
+      //   })
+      //   .then(response => (this.stockData = response.data))
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   })
     }
   }
 }
