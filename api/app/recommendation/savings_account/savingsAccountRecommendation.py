@@ -1,6 +1,6 @@
 def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, monthly_credit_card = 0, total_monthly_bill = 0, 
                                 no_bills_per_month = 0, unit_trust_annual_lum_sum_investment = 0, unit_trust_monthly_investment = 0,
-                                home_loan_monthly_installment = 0, home_loan_monthly_installment_more_200k = False, insurance_annual_expenditure = 0):
+                                home_loan_monthly_installment = 0, insurance_annual_expenditure = 0):
 
     def standard_chartered_jumpstart(bank_balance):
 
@@ -132,8 +132,39 @@ def calculate_monthly_interest(bank_balance = 0, monthly__salary_credited = 0, m
             bank_interest = 0.75
 
         return bank_balance * bank_interest/100
+        
+    def singlife_account(bank_balance):
+    
+        if bank_balance > 500 and bank_balance < 10000:
+            bank_interest = 0.025
+        else:
+            bank_interest = 0
+
+        return bank_interest * bank_balance
+
+    def singtel_dash_easyearn(bank_balance):
+
+        if bank_balance > 2000 and bank_balance < 20000:
+            bank_interest = 0.02
+        else:
+            bank_interest = 0
+        
+        return bank_interest * bank_balance
+
+    def etiqa_elastiq(bank_balance):
+
+        if bank_balance > 5000 and bank_balance < 50000:
+            bank_interest = 0.018
+        else:
+            bank_interest = 0
+        
+        return bank_interest * bank_balance
 
     all_interests = {}
+
+    all_interests['Singlife Account'] = singlife_account(bank_balance)
+    all_interests['Singtel Dash EasyEarn'] = singtel_dash_easyearn(bank_balance)
+    all_interests['Etiqa ELASTIQ'] = etiqa_elastiq(bank_balance)
 
     all_interests['Standard Chartered JumpStart'] = standard_chartered_jumpstart(bank_balance)
     all_interests['Standard Chartered Bonus Saver'] = standard_chartered_bonussaver(bank_balance, monthly__salary_credited, no_bills_per_month, monthly_credit_card, 
