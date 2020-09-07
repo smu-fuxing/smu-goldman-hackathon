@@ -109,7 +109,7 @@ export default {
       if (this.$moment(this.mortgage.startDate, "DD-MM-YYYY", true).isValid()) {
         _date = this.$moment(this.mortgage.startDate, "DD-MM-YYYY").format('DDMMYYYY')
       } else {
-        _date = this.$moment(this.mortgage.startDate, "DD MMM YYYY").format('DDMMYYYY')
+        _date = this.$moment(this.mortgage.startDate, "YYYY/MM/DD").format('DDMMYYYY')
       }
 
       const data = this.$axios.$get("https://api.mavis-gs.com/api/mortgage-loan",
