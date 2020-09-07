@@ -81,6 +81,12 @@ export default {
       friends:
         [
           {
+            name: "Wei Chen",
+            profileImage: "https://media-exp1.licdn.com/dms/image/C5103AQG2QOEyzQTojA/profile-displayphoto-shrink_800_800/0?e=1605139200&v=beta&t=fWCw-ox49hN5yojNvaSeRJpT_CozI0YY7xn241unXjI",
+            overall: 265,
+            weekly: 60
+          },
+          {
             name: "Fuxing",
             profileImage: "https://avatars1.githubusercontent.com/u/4266087?s=460&u=4a3b98a573ffeb1d80b3ebe163eeec17d4856d32&v=4",
             overall: 220,
