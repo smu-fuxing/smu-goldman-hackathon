@@ -6,12 +6,33 @@ import education.calculator.mortgageLoan as ml
 import education.calculator.retirementCalculator as rc
 import education.calculator.retirementAgePrediction.retirementAgePrediction as rap
 import marketplace.perf_analysis as pa
+
+import recommendation.savings_account.savingsAccountRecommendation as sa
+
 from datetime import date
 from datetime import datetime
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+
+@app.route('/api/savings-account')
+def calculate_monthly_interest():
+  bank_balance = request.args.get('bank_balance', type=float)
+  monthly__salary_credited = request.args.get('monthly__salary_credited', type=float)
+  monthly_credit_card = request.args.get('monthly_credit_card', type=float)
+  total_monthly_bill = request.args.get('total_monthly_bill', type=float)
+  no_bills_per_month = request.args.get('no_bills_per_month', type=int)
+  unit_trust_annual_lum_sum_investment = request.args.get('unit_trust_annual_lum_sum_investment', type=float)
+  unit_trust_monthly_investment = request.args.get('unit_trust_monthly_investment', type=float)
+  home_loan_monthly_installment = request.args.get('home_loan_monthly_installment', type=float)
+  insurance_annual_expenditure = request.args.get('insurance_annual_expenditure', type=float)
+  data = sa.calculate_monthly_interest(bank_balance, monthly__salary_credited, monthly_credit_card, total_monthly_bill, 
+                                no_bills_per_month, unit_trust_annual_lum_sum_investment, unit_trust_monthly_investment,
+                                home_loan_monthly_installment, insurance_annual_expenditure)
+  return jsonify({'data': data}), 200
+
 
 @app.route('/api/mortgage-loan')
 def calculateMortgageLoan():
