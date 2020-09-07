@@ -38,7 +38,7 @@
         <a href="/dashboard" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Dashboard</a>
         <a href="/academy" class="block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Academy</a>
         <a href="/leaderboard" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Leaderboard</a>
-        <a href="/leaderboard" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Strategy</a>
+        <a href="/strategy" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Strategy</a>
         <a href="/sign-out" class="mt-1 block px-2 py-1 text-white font-semibold rounded hover:bg-gray-800">Sign out</a>
       </div>
     </div>

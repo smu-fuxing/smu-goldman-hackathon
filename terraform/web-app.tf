@@ -43,4 +43,14 @@ data "aws_iam_policy_document" "cf_web_policy" {
       "${module.cf_web.s3_bucket_arn}/*"
     ]
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateInvalidation"
+    ]
+    resources = [
+      "arn:aws:cloudfront::*:distribution/*"
+    ]
+  }
 }
