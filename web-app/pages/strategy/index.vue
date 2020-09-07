@@ -3,6 +3,7 @@
     <div class="px-6 full-width">
       <h1 class="text-gray-900 text-4xl">Strategy</h1>
       <h3 class="text-gray-700 text-xl">Saving Account</h3>
+      <div class="button">Saving Account</div>
 
       <form class="mt-4" @submit.prevent="onRecommend">
         <div v-for="input in inputs" class="py-1">

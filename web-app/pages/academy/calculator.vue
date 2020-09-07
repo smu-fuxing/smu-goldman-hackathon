@@ -105,6 +105,13 @@ export default {
   },
   methods: {
     getMortgageLoan() {
+      let _date = ""
+      if (this.$moment(this.mortgage.startDate, "DD-MM-YYYY", true).isValid()) {
+        _date = this.$moment(this.mortgage.startDate, "DD-MM-YYYY").format('DDMMYYYY')
+      } else {
+        _date = this.$moment(this.mortgage.startDate, "DD MMM YYYY").format('DDMMYYYY')
+      }
+
       const data = this.$axios.$get("https://api.mavis-gs.com/api/mortgage-loan",
         {
           params: {
@@ -113,7 +120,7 @@ export default {
             interest: this.mortgage.interest,
             years: this.mortgage.years,
             payments_year: this.mortgage.paymentYear,
-            start_date: this.$moment(this.mortgage.startDate, "DD-MM-YYYY").format('DDMMYYYY'),
+            start_date: _date,
           }
         })
         .then(response => (this.mortgageResult = response.data))
