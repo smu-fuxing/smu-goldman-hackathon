@@ -18,3 +18,10 @@ output "github_actions_AWS_S3_WEB_APP_BUCKET" {
   value = module.cf_web.s3_bucket_id
 }
 
+output "cognito_setup" {
+  value = {
+    region              = data.aws_region.current.name
+    userPoolId          = aws_cognito_user_pool_client.web.user_pool_id
+    userPoolWebClientId = aws_cognito_user_pool_client.web.id
+  }
+}
