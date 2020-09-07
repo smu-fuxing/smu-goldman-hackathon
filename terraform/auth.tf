@@ -1,8 +1,12 @@
 resource "aws_cognito_user_pool" "main" {
   name = "MAVIS"
 
-  auto_verified_attributes = ["email"]
+  auto_verified_attributes = []
   username_attributes      = ["email"]
+
+  lambda_config {
+    pre_sign_up = aws_lambda_function.cognito_pre_sign_up.arn
+  }
 
   mfa_configuration = "OFF"
 
