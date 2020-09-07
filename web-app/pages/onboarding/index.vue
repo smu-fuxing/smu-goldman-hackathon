@@ -1,23 +1,11 @@
 <template>
-  <div class="bg-goldman-darkBlue full-width">
+  <div class="bg-goldman-darkBlue full-width h-full">
     <div class="container md:w-1/3 mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
-      <div class="px-4 pt-6 flex justify-between" v-if="step_index > 0">
-        <button @click="step_index--"
-                class="py-3 px-4 font-bold text-sm uppercase rounded text-goldman-accent hover:bg-gray-700 focus:outline-none">
-          Back
-        </button>
-        <button v-if="step_index < 5" @click="step_index++"
-                class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
-          Next
-        </button>
-        <nuxt-link v-else to="/dashboard">
-          <button
-            class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
-            Done
-          </button>
-        </nuxt-link>
-      </div>
       <div class="container mx-auto px-6 pt-10">
+        <div class="shadow w-full bg-white bg-opacity-75 rounded mb-6">
+          <div class="bg-goldman-accent rounded leading-none py-1 text-center text-white"
+               :style="{ width: step_index/5*100  + '%' }"></div>
+        </div>
         <message v-if="step_index <= 1" :item="messages[step_index]" @eventname="incrementStep"></message>
         <div v-else-if="step_index === 2">
           <step1></step1>
@@ -39,11 +27,21 @@
             Get Started
           </button>
         </div>
-        <div v-else>
-          <div class="shadow w-full bg-white bg-opacity-75 rounded">
-            <div class="bg-goldman-accent rounded leading-none py-1 text-center text-white"
-                 :style="{ width: step_index/5*100  + '%' }"></div>
-          </div>
+        <div v-else class="px-4 pt-6 flex justify-between" v-if="step_index > 0">
+          <button @click="step_index--"
+                  class="py-3 px-4 font-bold text-sm uppercase rounded text-goldman-accent hover:bg-gray-700 focus:outline-none">
+            Back
+          </button>
+          <button v-if="step_index < 5" @click="step_index++"
+                  class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
+            Next
+          </button>
+          <nuxt-link v-else to="/dashboard">
+            <button
+              class="py-3 px-4 font-bold bg-goldman-accent text-sm uppercase rounded text-goldman-darkBlue hover:bg-gray-700 focus:outline-none">
+              Done
+            </button>
+          </nuxt-link>
         </div>
       </div>
     </div>

@@ -8,12 +8,12 @@
       <div class="flex pt-4">
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'mortgage'">
           <div>
-            <text-input :value.sync="mortgage.homePrice" :item="{name: 'Home Price'}"></text-input>
-            <text-input :value.sync="mortgage.downpayment" :item="{name: 'Down Payment'}"></text-input>
-            <text-input :value.sync="mortgage.interest" :item="{name: 'Interest'}"></text-input>
-            <text-input :value.sync="mortgage.years" :item="{name: 'Years'}"></text-input>
-            <text-input :value.sync="mortgage.paymentYear" :item="{name: 'Payment Year'}"></text-input>
-            <text-input :value.sync="mortgage.startDate" :item="{name: 'Start Date'}"></text-input>
+            <text-input type="number" :value.sync="mortgage.homePrice" :item="{name: 'Home Price'}"></text-input>
+            <text-input type="number" :value.sync="mortgage.downpayment" :item="{name: 'Down Payment'}"></text-input>
+            <text-input type="number" :value.sync="mortgage.interest" :item="{name: 'Interest'}"></text-input>
+            <text-input type="number" :value.sync="mortgage.years" :item="{name: 'Years'}"></text-input>
+            <text-input type="number" :value.sync="mortgage.paymentYear" :item="{name: 'Payment Year'}"></text-input>
+            <text-input type="date" :value.sync="mortgage.startDate" :item="{name: 'Start Date'}"></text-input>
             <div class="flex justify-center mt-6">
               <button
                 class="bg-goldman-darkBlue w-2/3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -23,20 +23,23 @@
               </button>
             </div>
           </div>
-          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.retirementSavingsResult !== ''">
-            <p class="text-xl">You can expect to have</p>
-            <p class="text-5xl font-bold">{{ '$' + this.retirementSavingsResult }}</p>
-            <p class="text-xl">saved when you are {{ retirementSavings.currentAge }}</p>
+          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.mortgageResult !== ''">
+            <p class="text-xl">You will need to pay</p>
+            <div>
+              <span class="text-5xl font-bold">{{ '$' + this.mortgageResult[1] }}</span>
+              <span class="text-2xl">/month</span>
+            </div>
+            <p class="text-xl">till <b>{{ ' ' + $moment(this.mortgageResult[0]).format('MMMM YYYY') }}</b></p>
           </div>
         </div>
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'retirement-savings'">
           <div>
-            <text-input :value.sync="retirementSavings.currentAge" :item="{name: 'Current Age'}"></text-input>
-            <text-input :value.sync="retirementSavings.yearlyContribution"
+            <text-input type="number" :value.sync="retirementSavings.currentAge" :item="{name: 'Current Age'}"></text-input>
+            <text-input type="number" :value.sync="retirementSavings.yearlyContribution"
                         :item="{name: 'Yearly Contribution'}"></text-input>
-            <text-input :value.sync="retirementSavings.currentSavings" :item="{name: 'Current Savings'}"></text-input>
-            <text-input :value.sync="retirementSavings.retirementAge" :item="{name: 'Retirement Age'}"></text-input>
-            <text-input :value.sync="retirementSavings.avgAnnualReturn"
+            <text-input type="number" :value.sync="retirementSavings.currentSavings" :item="{name: 'Current Savings'}"></text-input>
+            <text-input type="number" :value.sync="retirementSavings.retirementAge" :item="{name: 'Retirement Age'}"></text-input>
+            <text-input type="number" :value.sync="retirementSavings.avgAnnualReturn"
                         :item="{name: 'Average Annual Return'}"></text-input>
             <div class="flex justify-center mt-6">
               <button
@@ -55,19 +58,24 @@
         </div>
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'retirement-age'">
           <form action="/">
-            <text-input :value.sync="retirementAge.loop" :item="{name: 'Loop'}"></text-input>
-            <text-input :value.sync="retirementAge.startingAge"
+            <text-input type="number" :value.sync="retirementAge.loop" :item="{name: 'Loop'}"></text-input>
+            <text-input type="number" :value.sync="retirementAge.startingAge"
                         :item="{name: 'Starting Age'}"></text-input>
-            <text-input :value.sync="retirementAge.yearlyExpense" :item="{name: 'Yearly Expenses'}"></text-input>
-            <text-input :value.sync="retirementAge.startingAssets" :item="{name: 'Starting Assets'}"></text-input>
-            <text-input :value.sync="retirementAge.stockFraction"
+            <text-input type="number" :value.sync="retirementAge.yearlyExpense" :item="{name: 'Yearly Expenses'}"></text-input>
+            <text-input type="number" :value.sync="retirementAge.startingAssets" :item="{name: 'Starting Assets'}"></text-input>
+            <text-input type="number" :value.sync="retirementAge.stockFraction"
                         :item="{name: 'Stock Fractions'}"></text-input>
             <div class="flex justify-center mt-6">
               <button
                 class="bg-goldman-darkBlue w-2/3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
+                type="button"
+                @click="getRetirementAge()">
                 Calculate
               </button>
+            </div>
+            <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.retirementAgeResult !== ''">
+              <p class="text-xl">The probability of you running out of money is...</p>
+              <p class="text-5xl font-bold">{{ (this.retirementAgeResult.split("+")[0] * 100) + '%' }}</p>
             </div>
           </form>
         </div>
@@ -105,12 +113,10 @@ export default {
             interest: this.mortgage.interest,
             years: this.mortgage.years,
             payments_year: this.mortgage.paymentYear,
-            start_date: this.mortgage.startDate,
+            start_date: this.$moment(this.mortgage.startDate, "DD-MM-YYYY").format('DDMMYYYY'),
           }
         })
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(response => (this.mortgageResult = response.data))
         .catch(function (error) {
           console.log(error);
         })
@@ -136,17 +142,13 @@ export default {
         {
           params: {
             loop: this.retirementAge.loop,
-            starting_age: this.retirementAge.startingAge,
-            yearly_expense: this.retirementAge.yearlyExpense,
-            starting_assets: this.retirementAge.startingAssets,
-            stock_fraction: this.retirementAge.stockFraction,
-            state_abbrev: "SG",
-            demographic_group: "Chinese",
+            start_age: this.retirementAge.startingAge,
+            year_expense: this.retirementAge.yearlyExpense,
+            start_assets: this.retirementAge.startingAssets,
+            stock_frac: this.retirementAge.stockFraction,
           }
         })
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(response => (this.retirementAgeResult = response.data))
         .catch(function (error) {
           console.log(error);
         })

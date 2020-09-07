@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-goldman-darkBlue full-width">
+  <div class="bg-goldman-darkBlue full-width h-full">
     <div class="container md:w-1/3 mx-auto px-6 pt-10 bg-goldman-darkBlue h-screen">
       <div class="flex content-center">
         <div class="rounded-lg flex-grow">
