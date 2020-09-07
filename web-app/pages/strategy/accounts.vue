@@ -5,20 +5,20 @@
       <h3 class="text-gray-700 text-xl">Recommended Saving Account</h3>
 
       <div class="mt-2">
-        <div v-for="key in keys" class="py-3">
+        <div v-for="key in keys" class="py-3" v-if="map[key] > 0">
           <div class="bg-white rounded p-4">
             <h4 class="text-black font-bold">{{key}}</h4>
 
             <div class="flex justify-between items-end">
               <div>
-                <div class="flex items-center mt-1">
+                <div class="flex items-center mt-1 mb-1">
                   <div class="font-bold text-gray-800">
-                    S${{query['bank_balance'] / 100 * map[key]}}
+                    S${{Math.round(map[key] * 100) / 100}}
                   </div>
-                  <div class="ml-2 font-bold text-goldman-gold">{{map[key]}}%</div>
+<!--                  <div class="ml-2 font-bold text-goldman-gold">{{map[key]}}%</div>-->
                 </div>
 
-                <div class="text-xs text-gray-700">INTERNET PER ANNUM</div>
+                <div class="text-xs text-gray-700">INTEREST PER MONTH</div>
               </div>
 
               <button class="bg-goldman-darkBlue text-white px-3 py-2 rounded-lg font-medium">
