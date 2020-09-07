@@ -4,12 +4,12 @@
 
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <drop-down-list :item="{name: 'GOAL TYPE', options: ['Housing', 'Gifts']}"></drop-down-list>
+        <drop-down-list :item="{name: 'Goal Type', options: ['Housing', 'Investment', 'Car']}"></drop-down-list>
       </div>
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <text-input :item="{name: 'GOAL PERIOD (YEAR)'}"></text-input>
+        <text-input :item="{name: 'Goal Period (Year)'}"></text-input>
       </div>
     </div>
   </div>
