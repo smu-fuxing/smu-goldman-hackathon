@@ -52,7 +52,7 @@ Leaderboard
 
 ### Architecture Diagram
 
-![image](https://drive.google.com/uc?export=view&id=1qNwvrQGteUW6JF-Nb_jp0hDJuSwZcrru)
+![image](.github/images/architecture.jpg)
 
 ### Architecture Qualities
 Mavis is implemented with a Service-oriented architecture approach. The 3 core services are api, data and academy written in Python, Java and Node.js by 3 different engineers. They are deployed as docker containers in a AWS ECS cluster within a private subnet spread across multiple AZ. 
