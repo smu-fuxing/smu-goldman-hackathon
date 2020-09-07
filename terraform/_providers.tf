@@ -6,6 +6,14 @@ provider "random" {
 
 }
 
+provider "archive" {
+
+}
+
+provider "template" {
+
+}
+
 provider "aws" {
   region  = "ap-southeast-1"
   profile = "smu-fuxing"

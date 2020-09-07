@@ -36,6 +36,7 @@ export default {
   */
   plugins: [
     {src: '@/plugins/youtube.js', ssr: false},
+    {src: '@/plugins/amplify-auth.js', ssr: false},
   ],
   /*
   ** Auto import components
