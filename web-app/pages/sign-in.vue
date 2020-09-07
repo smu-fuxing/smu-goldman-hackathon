@@ -1,6 +1,6 @@
 <template>
   <div class="bg-goldman-darkBlue full-width">
-    <div class="container md:w-1/3 mx-auto px-6 pt-10 bg-goldman-darkBlue h-screen">
+    <div class="container md:w-3/5 lg:w-1/3 mx-auto px-6 pt-10 bg-goldman-darkBlue h-screen">
       <div class="flex content-center">
         <div class="rounded-lg flex-grow">
           <div class="px-6 py-6 flex-col">

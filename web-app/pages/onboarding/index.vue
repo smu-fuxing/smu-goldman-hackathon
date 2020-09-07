@@ -1,6 +1,6 @@
 <template>
   <div class="bg-goldman-darkBlue full-width h-full">
-    <div class="container md:w-1/3 mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
+    <div class="container md:w-3/5 lg:w-1/3 mx-auto md:px-6 md:pt-10 bg-goldman-darkBlue h-screen">
       <div class="container mx-auto px-6 pt-10">
         <div class="shadow w-full bg-white bg-opacity-75 rounded mb-6">
           <div class="bg-goldman-accent rounded leading-none py-1 text-center text-white"
