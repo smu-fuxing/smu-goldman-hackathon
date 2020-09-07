@@ -23,10 +23,13 @@
               </button>
             </div>
           </div>
-          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.retirementSavingsResult !== ''">
-            <p class="text-xl">You can expect to have</p>
-            <p class="text-5xl font-bold">{{ '$' + this.retirementSavingsResult }}</p>
-            <p class="text-xl">saved when you are {{ retirementSavings.currentAge }}</p>
+          <div class="text-center mt-10 border rounded p-4 bg-gray-300" v-if="this.mortgageResult !== ''">
+            <p class="text-xl">You will need to pay</p>
+            <div>
+              <span class="text-5xl font-bold">{{ '$' + this.mortgageResult[1] }}</span>
+              <span class="text-2xl">/month</span>
+            </div>
+            <p class="text-xl">till <b>{{ ' ' + $moment(this.mortgageResult[0]).format('MMMM YYYY') }}</b></p>
           </div>
         </div>
         <div class="flex flex-col w-full" v-if="this.$route.query.name === 'retirement-savings'">
@@ -105,12 +108,10 @@ export default {
             interest: this.mortgage.interest,
             years: this.mortgage.years,
             payments_year: this.mortgage.paymentYear,
-            start_date: this.mortgage.startDate,
+            start_date: this.$moment(this.mortgage.startDate, "DD-MM-YYYY").format('DDMMYYYY'),
           }
         })
-        .then(function (response) {
-          console.log(response);
-        })
+        .then(response => (this.mortgageResult = response.data))
         .catch(function (error) {
           console.log(error);
         })
