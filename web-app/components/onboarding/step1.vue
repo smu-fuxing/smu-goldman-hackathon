@@ -21,7 +21,7 @@
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <drop-down-list :item="{name: 'Financial Literacy', options: ['Well Versed', 'Noob']}"></drop-down-list>
+        <drop-down-list :item="{name: 'Financial Literacy', options: ['Well Versed', 'Novice']}"></drop-down-list>
       </div>
     </div>
     <div class="flex pt-4">

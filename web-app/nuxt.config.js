@@ -36,6 +36,7 @@ export default {
   */
   plugins: [
     {src: '@/plugins/youtube.js', ssr: false},
+    {src: '@/plugins/amplify-auth.js', ssr: false},
   ],
   /*
   ** Auto import components
@@ -48,6 +49,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment',
   ],
   /*
   ** Nuxt.js modules

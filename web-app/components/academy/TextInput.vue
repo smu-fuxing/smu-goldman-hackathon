@@ -5,6 +5,7 @@
         {{ item.name }}
       </label>
       <input
+        :type="type"
         class="text-lg px-3 py-2 rounded focus:outline-none placeholder-goldman-darkBlue bg-transparent border-2 border-goldman-darkBlue text-goldman-darkBlue bg-opacity-75"
         :placeholder="item.name" v-model="value" @keyup="$emit('update:value', value);"/>
     </div>
@@ -17,6 +18,7 @@ export default {
   props: {
     item: Object,
     value: String,
+    type: String,
   },
 }
 </script>

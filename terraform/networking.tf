@@ -71,6 +71,14 @@ module "lb" {
       port            = 443
       protocol        = "HTTPS"
       certificate_arn = aws_acm_certificate_validation.api_cert.certificate_arn
+
+      // TODO(fuxing): Enable when linked
+      //      action_type = "authenticate-cognito"
+      //      authenticate_cognito = {
+      //        user_pool_arn       = aws_cognito_user_pool.main.arn
+      //        user_pool_client_id = aws_cognito_user_pool_client.web.id
+      //        user_pool_domain    = var.domain_api
+      //      }
     }
   ]
 

@@ -9,22 +9,22 @@
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <text-input :item="{name: 'MONTHLY GROSS HOUSEHOLD INCOME'}"></text-input>
+        <text-input :item="{name: 'Monthly Gross Household Income'}"></text-input>
       </div>
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <text-input :item="{name: 'MONTHLY EXPENSES'}"></text-input>
+        <text-input :item="{name: 'Monthly Expenses'}"></text-input>
       </div>
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <text-input :item="{name: 'MONTHLY SAVINGS'}"></text-input>
+        <text-input :item="{name: 'Monthly Savings'}"></text-input>
       </div>
     </div>
     <div class="flex pt-4">
       <div class="flex flex-col w-full">
-        <drop-down-list :item="{name: 'EMPLOYMENT STATUS', options: ['Student', 'Full Time', 'Part Time', 'Unemployed']}"></drop-down-list>
+        <drop-down-list :item="{name: 'Employment Status', options: ['Student', 'Full Time', 'Part Time', 'Unemployed']}"></drop-down-list>
       </div>
     </div>
   </div>
