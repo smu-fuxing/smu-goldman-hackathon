@@ -56,12 +56,42 @@ export default {
         data: [
           [{
             label: 'Prove To Book',
+            value: "4",
+            remarks: "Buy",
+          },
+            {
+              label: 'Return on Assets',
+              value: "4",
+              remarks: "Buy",
+            },
+            {
+              label: 'Discounted Cash Flow',
+              value: "5",
+              remarks: "Strong Buy",
+            },
+            {
+              label: 'Price to Earning',
+              value: "3",
+              remarks: "Neutral",
+            },
+            {
+              label: 'Return on Equity',
+              value: "5",
+              remarks: "Strong Buy",
+            },
+            {
+              label: 'Depth to Equity',
+              value: "5",
+              remarks: "Strong Buy",
+            }],
+          [{
+            label: 'Prove To Book',
             value: "5",
             remarks: "Strong Buy",
           },
             {
               label: 'Return on Assets',
-              value: "3",
+              value: "5",
               remarks: "Strong Buy",
             },
             {
@@ -76,76 +106,16 @@ export default {
             },
             {
               label: 'Return on Equity',
-              value: "2",
-              remarks: "Sell",
-            },
-            {
-              label: 'Depth to Equity',
-              value: "5",
-              remarks: "Neutral",
-            }],
-          [{
-            label: 'Prove To Book',
-            value: "4",
-            remarks: "Neutral",
-          },
-            {
-              label: 'Return on Assets',
-              value: "5",
-              remarks: "Strong Buy",
-            },
-            {
-              label: 'Discounted Cash Flow',
-              value: "2",
-              remarks: "Neutral",
-            },
-            {
-              label: 'Price to Earning',
               value: "3",
               remarks: "Neutral",
-            },
-            {
-              label: 'Return on Equity',
-              value: "2",
-              remarks: "Sell",
             },
             {
               label: 'Depth to Equity',
               value: "2",
               remarks: "Sell",
             }],
-          [{
-            label: 'Prove To Book',
-            value: "1",
-            remarks: "Sell",
-          },
-            {
-              label: 'Return on Assets',
-              value: "3",
-              remarks: "Neutral",
-            },
-            {
-              label: 'Discounted Cash Flow',
-              value: "3",
-              remarks: "Neutral",
-            },
-            {
-              label: 'Price to Earning',
-              value: "3",
-              remarks: "Neutral",
-            },
-            {
-              label: 'Return on Equity',
-              value: "4",
-              remarks: "Neutral",
-            },
-            {
-              label: 'Depth to Equity',
-              value: "4",
-              remarks: "Neutral",
-            }]
         ],
-        stocks: ["GOOG", "TSLA", "APPL"],
+        stocks: ["TSLA", "AAPL"],
       },
       selectedIndex: 0
     }
